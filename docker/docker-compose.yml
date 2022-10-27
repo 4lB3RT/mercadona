@@ -13,19 +13,16 @@ services:
   php_mercadona:
     build: ./php
     container_name: php_$PROJECT_NAME
-    environment:
-      XDEBUG_CONFIG: remote_host={{YOUR_IP_ADDRESS}}
     volumes:
       - ../:/code
       - ./php:/usr/local/etc/php
     networks:
       - mercadona
+    depends_on:
+      - mysql_mercadona
   mysql_mercadona:
     image: mysql:8.0
     container_name: mysql_$PROJECT_NAME
-    restart: unless-stopped
-    tty: true
-    command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     ports:
       - "$MYSQL_PORT:3306"
     environment:
@@ -34,12 +31,8 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_ALLOW_EMPTY_PASSWORD=no
-    volumes:
-      - './db/data:/var/lib/mysql'
-      - './db/my.cnf:/etc/mysql/conf.d/my.cnf'
-      - './db/sql:/docker-entrypoint-initdb.d'
     networks:
       - mercadona
 networks:
   mercadona:
-    driver: bridge
+    driver: bridge  
