@@ -3,7 +3,9 @@
 namespace Mercadona\Infrastructure\Commands\Category;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Log;
 use Mercadona\Application\Category\GetCategories;
+use Throwable;
 
 class GetCategoriesArtisanCommand extends Command
 {
@@ -19,6 +21,10 @@ class GetCategoriesArtisanCommand extends Command
  
     public function handle(): void
     {
-        $this->getCategories->execute();
+        try {
+            $this->getCategories->execute();
+        }catch(Throwable $e) {
+            Log::info($e->getMessage());
+        }
     }
 }

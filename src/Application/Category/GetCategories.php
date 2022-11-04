@@ -14,6 +14,7 @@ final class GetCategories
 
     public function execute(): void
     {
-        
+        $categories = $this->finderCategoryRepository->findCategories();  
+        $this->categoryRepository->saveAll($categories);
     }
 }

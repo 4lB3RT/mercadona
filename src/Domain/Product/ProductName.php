@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Mercadona\Domain\Category;
+namespace Mercadona\Domain\Product;
 
-final class CategoryName
+final class ProductName
 {
     public function __construct(
         private readonly string $value
