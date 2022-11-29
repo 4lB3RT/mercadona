@@ -2,14 +2,14 @@
 
 namespace Mercadona\Domain\Product;
 
-final class ProductId
+final class ProductRemoteId
 {
     public function __construct(
-        private readonly string $value
+        private readonly int $value
     ) {
     }
 
-    public function value(): string
+    public function value(): int
     {
         return $this->value;
     }

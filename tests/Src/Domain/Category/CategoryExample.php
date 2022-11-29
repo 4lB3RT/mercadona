@@ -5,6 +5,7 @@ namespace Tests\Mercadona\Domain\Category;
 use Mercadona\Domain\Category\Category;
 use Mercadona\Domain\Category\CategoryId;
 use Mercadona\Domain\Category\CategoryName;
+use Mercadona\Domain\Category\CategoryStatus;
 use Tests\Mercadona\Domain\Product\ProductCollectionExample;
 use Tests\Mercadona\Shared\Domain\BoolExample;
 use Tests\Mercadona\Shared\Domain\IntegerExample;
@@ -15,8 +16,9 @@ final class CategoryExample {
     {
         return new Category(
             new CategoryId(1),
-            null,
+            new CategoryId(1000),
             new CategoryName("Dummy"),
+            CategoryStatus::READY,
             true,
             0,
             CategoryCollectionExample::empty(),
@@ -27,9 +29,10 @@ final class CategoryExample {
     public static function random(): Category
     {
         return new Category(
-            CategoryIdExample::random(1),
-            null,
+            CategoryIdExample::random(),
+            CategoryIdExample::random(),
             CategoryNameExample::random(),
+            CategoryStatus::READY,
             BoolExample::random(),
             IntegerExample::random(),
             CategoryCollectionExample::empty(),

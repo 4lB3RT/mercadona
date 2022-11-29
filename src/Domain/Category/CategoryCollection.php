@@ -27,4 +27,19 @@ final class CategoryCollection
     {
         return new self(null);
     }
+
+    public function children(): self
+    {
+        $categoriesWithChildren = [];
+
+        /** @var Category $category */
+        foreach ($this->items as $category) {
+            /** @var Category $category */
+            foreach ($category->categories()->items() as $category) {
+                $categoriesWithChildren[] = $category;    
+            }
+        }
+
+        return new self($categoriesWithChildren);
+    }
 }

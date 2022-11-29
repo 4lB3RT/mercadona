@@ -3,11 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Mercadona\Domain\Category\CategoryReadRepository;
 use Mercadona\Domain\Category\CategoryRepository;
-use Mercadona\Domain\Category\FinderCategoryRepository;
+use Mercadona\Domain\Product\ProductReadRepository;
 use Mercadona\Domain\Product\ProductRepository;
-use Mercadona\Infrastructure\Domain\Category\ApiFinderCategoryRepository;
-use Mercadona\Infrastructure\Domain\Product\ApiFinderProductRepository;
+use Mercadona\Infrastructure\Domain\Category\ApiCategoryRepository;
+use Mercadona\Infrastructure\Domain\Product\ApiProductRepository;
 use Mercadona\Infrastructure\Domain\Category\EloquentCategoryRepository;
 use Mercadona\Infrastructure\Domain\Product\EloquentProductRepository;
 
@@ -25,8 +26,8 @@ class RepositoryServiceProvider extends ServiceProvider
            EloquentCategoryRepository::class
        );
         $this->app->bind(
-            FinderCategoryRepository::class,
-            ApiFinderCategoryRepository::class
+            CategoryReadRepository::class,
+            ApiCategoryRepository::class
         );
 
         $this->app->bind(
@@ -34,8 +35,8 @@ class RepositoryServiceProvider extends ServiceProvider
             EloquentProductRepository::class
         );
          $this->app->bind(
-             FinderProductRepository::class,
-             ApiFinderProductRepository::class
+            ProductReadRepository::class,
+            ApiProductRepository::class
          );
     }
 

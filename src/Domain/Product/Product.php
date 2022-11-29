@@ -11,10 +11,10 @@ final class Product extends Entity
         private readonly ProductId $id,
         private readonly CategoryCollection $categories,
         private readonly ProductName $name,    
-        private readonly string $slug,
+        private readonly ?string $slug,
         private readonly int $limit,
-        private readonly bool $published,
-        private readonly string $shareUrl,
+        private readonly ?bool $published,
+        private readonly ?string $shareUrl,
         private readonly string $thumbnail
     ) {}
 
@@ -33,7 +33,7 @@ final class Product extends Entity
         return $this->categories;
     }
 
-    public function slug(): string
+    public function slug(): ?string
     {
         return $this->slug;
     }
@@ -43,12 +43,12 @@ final class Product extends Entity
         return $this->limit;
     }
 
-    public function published(): bool
+    public function published(): ?bool
     {
         return $this->published;
     }
 
-    public function url(): string
+    public function url(): ?string
     {
         return $this->url;
     }

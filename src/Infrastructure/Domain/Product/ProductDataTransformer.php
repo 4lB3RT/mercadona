@@ -15,12 +15,12 @@ final class ProductDataTransformer
     {
         return new Product(
             new ProductId($result["id"]),
-            isset($result["categories"]) ? CategoryDataTransformer::fromArrays($result["categories"]) : CategoryCollection::empty(),
-            new ProductName($result["name"]),
-            $result["slug"],
+            isset($result["categories"]) ? CategoryDataTransformer::fromArrays($result["categories"], null) : CategoryCollection::empty(),
+            new ProductName($result["display_name"]),
+            isset($result["slug"]) ? $result["slug"] : null,
             $result["limit"],
-            $result["published"],
-            $result["shared_url"],
+            isset($result["published"]) ? $result["published"] : null,
+            isset($result["shared_url"]) ? $result["shared_url"] : null,
             $result["thumbnail"],
         );
     }

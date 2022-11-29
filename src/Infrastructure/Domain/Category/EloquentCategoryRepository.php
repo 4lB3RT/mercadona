@@ -8,13 +8,21 @@ use Mercadona\Domain\Category\CategoryRepository;
 
 final class EloquentCategoryRepository implements CategoryRepository
 {
-    public function save(Category $category): void
+    public function findAll(): CategoryCollection
     {
         $categoryEloquent = new CategoryEloquent();
 
-        $categoryEloquent->fill(CategoryDataTransformer::fromEntity($category));
+        $categoryCollectionEloquent = $categoryEloquent->with("categories")->get();
 
-        $categoryEloquent->save();
+        return CategoryDataTransformer::fromCollection($categoryCollectionEloquent);
+    }
+
+    public function save(Category $category): void
+    {
+        CategoryEloquent::updateOrCreate(
+            ['id' => $category->id()->value()],
+            CategoryDataTransformer::fromEntity($category)
+        );
     }
 
     public function saveAll(CategoryCollection $categories): void

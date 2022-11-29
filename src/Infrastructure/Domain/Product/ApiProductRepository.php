@@ -1,13 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Mercadona\Infrastructure\Domain\Category;
+namespace Mercadona\Infrastructure\Domain\Product;
 
-use Mercadona\Domain\Category\CategoryCollection;
-use Mercadona\Domain\Category\FinderCategoryRepository;
+use Mercadona\Domain\Product\Product;
+use Mercadona\Domain\Product\ProductReadRepository;
+use Mercadona\Domain\Product\ProductRepository;
 
-final class ApiFinderCategoryRepository implements FinderCategoryRepository
+final class ApiProductRepository implements ProductReadRepository
 {
-    public function findCategories(): CategoryCollection
+    public function findProduct(): Product
     {        
         $curl = curl_init();
 
@@ -29,6 +30,6 @@ final class ApiFinderCategoryRepository implements FinderCategoryRepository
 
         $response = \json_decode($response, true);
 
-        return CategoryDataTransformer::fromArrays($response["results"], null);
+        return ProductDataTransformer::fromArray($response["results"]);
     }
 }

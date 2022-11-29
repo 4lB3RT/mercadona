@@ -9,12 +9,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-            $table->id()->unsigned();
+            $table->unsignedInteger('id')->primary()->unsigned();
             $table->unsignedInteger('category_id')->nullable()->unsigned();
             $table->boolean("is_parent");
             $table->string('name');
-            $table->boolean("published");
-            $table->integer("order");
+            $table->string('status');
+            $table->boolean("published")->nullable();
+            $table->integer("order")->nullable();
             $table->timestamps();
         });
     }

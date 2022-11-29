@@ -11,9 +11,10 @@ final class Category extends Entity
         private readonly CategoryId $id,
         private readonly ?CategoryId $parentId,
         private readonly CategoryName $name,
-        private readonly bool $published,
-        private readonly int $order,
-        private readonly CategoryCollection $categories,
+        private CategoryStatus $status,
+        private readonly ?bool $published = false,
+        private readonly ?int $order,
+        private CategoryCollection $categories,
         private readonly ProductCollection $products
     ) {}
 
@@ -32,12 +33,22 @@ final class Category extends Entity
         return $this->name;
     }
 
-    public function published(): bool
+    public function status(): CategoryStatus
+    {
+        return $this->status;
+    }
+
+    public function modifyStatus(CategoryStatus $status): void
+    {
+        $this->status = $status;
+    }
+
+    public function published(): ?bool
     {
         return $this->published;
     }
 
-    public function order(): int
+    public function order(): ?int
     {
         return $this->order;
     }
@@ -55,5 +66,15 @@ final class Category extends Entity
     public function hasCategories(): bool
     {
         return !$this->categories()?->isEmpty();
+    }
+
+    public function modifyCategories(CategoryCollection $categories): void
+    {
+        $this->categories = $categories;
+    }
+
+    public function isParent(): bool
+    {
+        return $this->hasCategories();
     }
 }

@@ -2,6 +2,6 @@
 
 namespace Mercadona\Domain\Product;
 
-interface FinderProductRepository {
+interface ProductReadRepository {
     public function findProduct(): Product;
 }
