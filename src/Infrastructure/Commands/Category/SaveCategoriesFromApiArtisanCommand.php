@@ -4,16 +4,16 @@ namespace Mercadona\Infrastructure\Commands\Category;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use Mercadona\Application\Category\GetCategories;
+use Mercadona\Application\Category\SaveCategoriesFromApi;
 use Throwable;
 
-class GetCategoriesArtisanCommand extends Command
+class SaveCategoriesFromApiArtisanCommand extends Command
 {
-    protected $signature = 'get-categories';
+    protected $signature = 'save-categories';
     protected $description = '';
 
     public function __construct(
-       private readonly GetCategories $getCategories
+       private readonly SaveCategoriesFromApi $getCategoriesFromApi
     )
     {
         parent::__construct();
@@ -22,7 +22,7 @@ class GetCategoriesArtisanCommand extends Command
     public function handle(): void
     {
         try {
-            $this->getCategories->execute();
+            $this->getCategoriesFromApi->execute();
         }catch(Throwable $e) {
             Log::info($e->getMessage());
         }

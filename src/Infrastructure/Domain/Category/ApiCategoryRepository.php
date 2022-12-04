@@ -8,7 +8,7 @@ use Mercadona\Domain\Category\Category;
 use Mercadona\Domain\Category\CategoryCollection;
 use Mercadona\Domain\Category\CategoryReadRepository;
 use Mercadona\Domain\Category\CategoryStatus;
-use Symfony\Component\HttpFoundation\Response as HttpFoundationResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 final class ApiCategoryRepository implements CategoryReadRepository
 {
@@ -57,11 +57,11 @@ final class ApiCategoryRepository implements CategoryReadRepository
       } catch(GuzzleException $exception) {
         $code = $exception->getCode();
 
-        if ($code === HttpFoundationResponse::HTTP_GONE) {
+        if ($code === Response::HTTP_GONE) {
           $category->modifyStatus(CategoryStatus::PROCESSED);
         }
 
-        if ($code === HttpFoundationResponse::HTTP_TOO_MANY_REQUESTS) {
+        if ($code === Response::HTTP_TOO_MANY_REQUESTS) {
           $category->modifyStatus(CategoryStatus::FAIL);        }
       }
 

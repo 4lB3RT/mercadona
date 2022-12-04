@@ -2,10 +2,10 @@
 
 namespace Mercadona\Domain\Category;
 
-enum CategoryStatus
+enum CategoryStatus: string
 {
-    case READY;
-    case NOT_PROCESSED;
-    case PROCESSED;
-    case FAIL;
+    case READY = "READY";
+    case NOT_PROCESSED = "NOT_PROCESSED";
+    case PROCESSED = "PROCESSED";
+    case FAIL = "FAIL";
 }

@@ -65,13 +65,13 @@ final class CategoryDataTransformer
     public static function fromModel(Model $model): Category
     {
         return new Category(
-            new CategoryId($model->remote_id),
-            $model->parent_id ? new CategoryId($model->parent_id) : null,
+            new CategoryId($model->id),
+            $model->category_id ? new CategoryId($model->category_id) : null,
             new CategoryName($model->name),
             CategoryStatus::READY,
             (bool) $model->published,
             $model->order,
-            empty($model->categories) ?  self::fromCollection($model->categories) : CategoryCollection::empty(),
+            !empty($model->categories) ? self::fromCollection($model->categories) : CategoryCollection::empty(),
             ProductCollection::empty()
         );
     }

@@ -5,12 +5,7 @@ namespace Mercadona\Domain\Category;
 final class CategoryId
 {
     public function __construct(
-        private readonly int $value
+        public readonly int $value
     ) {
-    }
-
-    public function value(): int
-    {
-        return $this->value;
     }
 }
