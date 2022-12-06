@@ -11,7 +11,7 @@ paths:
       summary: Returns a category collection.
       responses:
         '200':
-          description: A JSON array of user names
+          description: A JSON array of categories
           content:
            application/json:
               schema:
@@ -36,6 +36,38 @@ paths:
            application/json:
               schema:
                 $ref: '#/components/schemas/Category'            
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /products:
+    get:
+      summary: Returns a product collection.
+      responses:
+        '200':
+          description: A JSON array of products
+          content:
+           application/json:
+              schema:
+                $ref: '#/components/schemas/Products'            
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /products/{productId}:
+    get:
+      summary: Returns a category
+      parameters:
+        - in: path
+          name: productId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the product to get
+          example: 4241
+      responses:
+        '200':
+          description: A JSON array of user names
+          content:
+           application/json:
+              schema:
+                $ref: '#/components/schemas/Product'            
         '404':
           $ref: '#/components/responses/NotFound'
 components:
@@ -68,6 +100,33 @@ components:
       type: array
       items: 
         $ref: '#/components/schemas/Category'
+    Product:     
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 2
+        name:
+          type: string
+          example: "ProductName"
+        price:
+          type: number
+          example: 24.75
+        brand: 
+          type: string
+          example: "hacendado"
+        photo: 
+          type: string
+          example: "https://prod-mercadona.imgix.net/images/2b43f11cabb9fe773ae9b73a9caa2bf9.jpg?fit=crop&h=1600&w=1600"
+        description: 
+          type: string
+          example: "Aceite de oliva 0,4º Hacendado"
+        categories: 
+          $ref: '#/components/schemas/Categories'
+    Products: 
+      type: array
+      items: 
+        $ref: '#/components/schemas/Product'
   responses:
     NotFound:
       description: Entity not found

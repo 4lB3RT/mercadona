@@ -3,7 +3,6 @@
 namespace Mercadona\Infrastructure\Presenters\Category;
 
 use Mercadona\Domain\Category\Category;
-use Mercadona\Domain\Product\Product;
 use Mercadona\Infrastructure\Domain\Category\CategoryDataTransformer;
 use Mercadona\Infrastructure\Domain\Product\ProductDataTransformer;
 use Mercadona\Shared\Application\Response;

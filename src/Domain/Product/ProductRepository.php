@@ -2,8 +2,11 @@
 
 namespace Mercadona\Domain\Product;
 
-interface ProductRepository {
-    public function save(Product $product): void;
+interface ProductRepository 
+{
+    public function find(ProductId $productId): Product;
 
-    public function saveAll(ProductCollection $products): void;
+    public function findAll(): ProductCollection; 
+
+    public function save(Product $product): void;
 }

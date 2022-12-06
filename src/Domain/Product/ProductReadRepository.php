@@ -3,5 +3,5 @@
 namespace Mercadona\Domain\Product;
 
 interface ProductReadRepository {
-    public function findProduct(): Product;
+    public function findDetailProduct(Product $product): Product;
 }

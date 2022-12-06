@@ -3,19 +3,27 @@
 namespace Mercadona\Domain\Product;
 
 use Mercadona\Domain\Category\CategoryCollection;
+use Mercadona\Domain\Price\Price;
+use Mercadona\Domain\Price\PriceCollection;
 use Mercadona\Shared\Domain\Entity;
 
 final class Product extends Entity
 {
     public function __construct(
         public readonly ProductId $id,
-        private CategoryCollection $categories,
         public readonly ProductName $name,
+        public readonly ?int $ean,
         public readonly ?string $slug,
+        public readonly ?string $brand,
         public readonly int $limit,
+        public readonly ?string $origin,
+        public readonly ?string $packaging,
         public readonly ?bool $published,
         public readonly ?string $shareUrl,
-        public readonly string $thumbnail
+        public readonly string $thumbnail,
+        public readonly ?string $isVariableWeight,
+        private CategoryCollection $categories,
+        private ?PriceCollection $prices,
     ) {
     }
 
@@ -29,4 +37,18 @@ final class Product extends Entity
         $this->categories = $categories;
     }
 
+    public function prices(): ?PriceCollection
+    {
+        return $this->prices;
+    }
+
+    public function modifyPrices(PriceCollection $prices): void
+    {
+        $this->prices = $prices;
+    }
+
+    public function hasPrices(): bool
+    {
+        return $this->prices() ? true : false;
+    }
 }
