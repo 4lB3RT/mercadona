@@ -10,7 +10,7 @@ use IteratorAggregate;
 
 abstract class Collection implements Countable, IteratorAggregate
 {
-    public function __construct(private readonly array $items)
+    public function __construct(protected readonly array $items)
     {
         Assert::arrayOf($this->type(), $items);
     }
@@ -30,5 +30,15 @@ abstract class Collection implements Countable, IteratorAggregate
     public function items(): array
     {
         return $this->items;
+    }
+
+    public static function empty(): static
+    {
+        return new static([]);
+    }
+
+    public function isEmpty(): bool
+    {
+        return $this->items !== null ? false : true;
     }
 }

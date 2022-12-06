@@ -18,6 +18,26 @@ paths:
                 $ref: '#/components/schemas/Categories'            
         '404':
           $ref: '#/components/responses/NotFound'
+  /categories/{categoryId}:
+    get:
+      summary: Returns a category
+      parameters:
+        - in: path
+          name: categoryId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the category to get
+          example: 12
+      responses:
+        '200':
+          description: A JSON array of user names
+          content:
+           application/json:
+              schema:
+                $ref: '#/components/schemas/Category'            
+        '404':
+          $ref: '#/components/responses/NotFound'
 components:
   schemas:
     Category:     

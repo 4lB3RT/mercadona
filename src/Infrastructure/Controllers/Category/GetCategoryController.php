@@ -5,19 +5,22 @@ namespace Mercadona\Infrastructure\Controllers\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use Mercadona\Application\Category\GetCategories\GetCategories;
-use Mercadona\Infrastructure\Presenters\Category\GetCategoriesPresenter;
+use Mercadona\Application\Category\GetCategory\GetCategoryRequest;
+use Mercadona\Application\Category\GetCategory\GetCategory;
+use Mercadona\Infrastructure\Presenters\Category\GetCategoryPresenter;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 
-class GetCategoriesController extends Controller
+class GetCategoryController extends Controller
 { 
     public function __invoke(
-        GetCategories $getCategories,
-        GetCategoriesPresenter $presenter
+        GetCategory $getCategory,
+        int $categoryId,
+        GetCategoryPresenter $presenter
     ): JsonResponse {
         try {
-            $response = $getCategories->execute();
+            $request = new GetCategoryRequest($categoryId);
+            
+            $response = $getCategory->execute($request);
 
             return new JsonResponse(
                 data: $presenter->toJson($response),
@@ -31,8 +34,7 @@ class GetCategoriesController extends Controller
             [
                 $exception->getMessage(), 
                 $exception->getFile(), 
-                $exception->getLine(),
-                $exception->__toString()
+                $exception->getLine()
             ],
               status: Response::HTTP_BAD_REQUEST, 
             );

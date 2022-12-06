@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Mercadona\Application\Category\GetCategories\GetCategories;
+use Mercadona\Application\Category\GetCategory\GetCategory;
 use Mercadona\Infrastructure\Controllers\Category\GetCategoriesController;
+use Mercadona\Infrastructure\Controllers\Category\GetCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/categories', [GetCategoriesController::class, "__invoke"]);
+Route::group(['prefix'=>'categories'], function(){
+    Route::get('/', GetCategoriesController::class)->name("categories");
+    Route::get('/{categoryId}', GetCategoryController::class)->name("category");
+});

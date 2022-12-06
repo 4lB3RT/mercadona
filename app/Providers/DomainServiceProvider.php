@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Mercadona\Domain\Category\Service\FindCategoriesAndSave;
-use Mercadona\Domain\Category\Service\FindCategoriesAndSaveService;
+use Mercadona\Domain\Category\Service\FindAndSaveCategory;
+use Mercadona\Domain\Category\Service\FindAndSaveCategoryService;
 
 class DomainServiceProvider extends ServiceProvider
 {
@@ -16,8 +16,8 @@ class DomainServiceProvider extends ServiceProvider
     public function register()
     {
        $this->app->bind(
-           FindCategoriesAndSave::class,
-           FindCategoriesAndSaveService::class
+           FindAndSaveCategory::class,
+           FindAndSaveCategoryService::class
        );
     }
 

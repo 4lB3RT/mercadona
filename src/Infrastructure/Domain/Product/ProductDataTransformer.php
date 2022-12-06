@@ -2,7 +2,7 @@
 
 namespace Mercadona\Infrastructure\Domain\Product;
 
-use Mercadona\Domain\Category\CategoryCollection;
+use Mercadona\Domain\Category\Category;
 use Mercadona\Domain\Product\ProductCollection;
 use Mercadona\Domain\Product\Product;
 use Mercadona\Domain\Product\ProductId;
@@ -11,11 +11,11 @@ use Mercadona\Infrastructure\Domain\Category\CategoryDataTransformer;
 
 final class ProductDataTransformer
 {
-    public static function fromArray(array $result): Product
+    public static function fromArray(array $result, Category $category): Product
     {
         return new Product(
             new ProductId($result["id"]),
-            isset($result["categories"]) ? CategoryDataTransformer::fromArrays($result["categories"], null) : CategoryCollection::empty(),
+            $category,
             new ProductName($result["display_name"]),
             isset($result["slug"]) ? $result["slug"] : null,
             $result["limit"],
@@ -25,13 +25,39 @@ final class ProductDataTransformer
         );
     }
 
-    public static function fromArrays(array $productsArray): ProductCollection
+    public static function fromArrays(array $productsArray, Category $category): ProductCollection
     {
         $products = [];
         foreach ($productsArray as $productArray) {
-            $products[] = self::fromArray($productArray);
+            $products[] = self::fromArray($productArray, $category);
         }
 
         return new ProductCollection($products);
     }
+
+    public static function fromEntity(Product $product)
+    {
+       return [
+            "id" => $product->id->value,
+            "name" => $product->name->value,
+            "slug" => $product->slug,
+            "limit" => $product->limit,
+            "published" => $product->published,
+            "shareUrl" => $product->shareUrl,
+            "thumbnail" =>  $product->thumbnail
+        ];
+    }
+
+    public static function fromEntities(ProductCollection $products)
+    {
+        $productsArray = [];
+
+        /** @var Product $product */
+        foreach ($products as $product) {
+            $productsArray[] = self::fromEntity($product);
+        }
+
+        return $productsArray;
+    }
+
 }

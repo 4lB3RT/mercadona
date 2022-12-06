@@ -6,21 +6,6 @@ use Mercadona\Shared\Domain\Collection;
 
 final class CategoryCollection extends Collection
 {
-    public function children(): self
-    {
-        $categoriesWithChildren = [];
-
-        /** @var Category $category */
-        foreach ($this->items as $category) {
-            /** @var Category $category */
-            foreach ($category->categories()->items() as $category) {
-                $categoriesWithChildren[] = $category;    
-            }
-        }
-
-        return new self($categoriesWithChildren);
-    }
-
     public function type(): string
     {
         return Category::class;
@@ -30,10 +15,4 @@ final class CategoryCollection extends Collection
     {
         return $this->items !== null ? false : true;
     }
-
-    public static function empty(): self
-    {
-        return new self([]);
-    }
-
 }

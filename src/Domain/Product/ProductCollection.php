@@ -3,20 +3,12 @@
 namespace Mercadona\Domain\Product;
 
 use Mercadona\Domain\Product\Product;
+use Mercadona\Shared\Domain\Collection;
 
-final class ProductCollection
+final class ProductCollection extends Collection
 {
-    public function __construct(
-        private readonly ?array $itmes
-    ) {}
-
     public function type(): string
     {
         return Product::class;
-    }
-
-    public static function empty(): self
-    {
-        return new self(null);
     }
 }

@@ -8,30 +8,15 @@ use Mercadona\Shared\Domain\Entity;
 final class Category extends Entity
 {
     public function __construct(
-        private readonly CategoryId $id,
-        private readonly ?CategoryId $parentId,
-        private readonly CategoryName $name,
+        public readonly CategoryId $id,
+        public readonly ?CategoryId $parentId,
+        public readonly CategoryName $name,
         private CategoryStatus $status,
-        private readonly ?bool $published = false,
-        private readonly ?int $order,
+        public readonly ?bool $published = false,
+        public readonly ?int $order,
         private CategoryCollection $categories,
-        private readonly ProductCollection $products
+        private ?ProductCollection $products
     ) {}
-
-    public function id(): CategoryId
-    {
-        return $this->id;
-    }
-
-    public function parentId(): ?CategoryId
-    {
-        return $this->parentId;
-    }
-
-    public function name(): CategoryName
-    {
-        return $this->name;
-    }
 
     public function status(): CategoryStatus
     {
@@ -43,24 +28,9 @@ final class Category extends Entity
         $this->status = $status;
     }
 
-    public function published(): ?bool
-    {
-        return $this->published;
-    }
-
-    public function order(): ?int
-    {
-        return $this->order;
-    }
-
     public function categories(): CategoryCollection
     {
         return $this->categories;
-    }
-
-    public function products(): ProductCollection
-    {
-        return $this->products;
     }
 
     public function hasCategories(): bool
@@ -73,8 +43,28 @@ final class Category extends Entity
         $this->categories = $categories;
     }
 
+    public function products(): ProductCollection
+    {
+        return $this->products;
+    }
+
+    public function hasProducts(): bool
+    {
+        return !$this->products()?->isEmpty();
+    }
+
+    public function modifyProducts(ProductCollection $products): void
+    {
+        $this->products = $products;
+    }
+
     public function isParent(): bool
     {
         return $this->hasCategories();
+    }
+
+    public function hasParent(): bool
+    {
+        return $this->parentId ? true : false;
     }
 }

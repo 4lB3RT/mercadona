@@ -6,5 +6,5 @@ use Mercadona\Shared\Application\Response;
 
 interface JsonPresenter
 {
-    public function toJson(Response $response): array;
+    public function toJson(Response $response): string;
 }

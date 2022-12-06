@@ -2,12 +2,13 @@
 
 namespace Mercadona\Infrastructure\Presenters\Category;
 
+use Mercadona\Domain\Category\Category;
 use Mercadona\Shared\Application\Response;
 use Mercadona\Shared\Infrastructure\Presenters\JsonPresenter;
 
 final class GetCategoriesPresenter implements JsonPresenter
 { 
-    public function toJson(Response $response): array
+    public function toJson(Response $response): string
     {
         $categories = $response->categories;
 
@@ -16,19 +17,19 @@ final class GetCategoriesPresenter implements JsonPresenter
         /** @var Category $category */
         foreach ($categories->items () as $category) {
             $categoriesArray[] = [
-                "id" => $category->id()->value,
-                "parentId" => $category->parentId()?->value,
-                "name" => $category->name()->value,
+                "id" => $category->id->value,
+                "parentId" => $category->parentId?->value,
+                "namae" => $category->name->value,
                 "status" => $category->status(),
-                "published" => $category->published(),
-                "order" => $category->order()
+                "published" => $category->published,
+                "order" => $category->order
             ];
         }
 
-        return [
+        return json_encode([
             "categories" => [
                 $categoriesArray
             ]
-        ];
+        ]);
     }
 }

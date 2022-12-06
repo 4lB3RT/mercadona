@@ -2,59 +2,20 @@
 
 namespace Mercadona\Domain\Product;
 
-use Mercadona\Domain\Category\CategoryCollection;
+use Mercadona\Domain\Category\Category;
 use Mercadona\Shared\Domain\Entity;
 
 final class Product extends Entity
 {
     public function __construct(
-        private readonly ProductId $id,
-        private readonly CategoryCollection $categories,
-        private readonly ProductName $name,    
-        private readonly ?string $slug,
-        private readonly int $limit,
-        private readonly ?bool $published,
-        private readonly ?string $shareUrl,
-        private readonly string $thumbnail
-    ) {}
-
-    public function id(): ProductId
-    {
-        return $this->id;
-    }
-
-    public function name(): ProductName
-    {
-        return $this->name;
-    }
-
-    public function categories(): CategoryCollection
-    {
-        return $this->categories;
-    }
-
-    public function slug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function limit(): int
-    {
-        return $this->limit;
-    }
-
-    public function published(): ?bool
-    {
-        return $this->published;
-    }
-
-    public function url(): ?string
-    {
-        return $this->url;
-    }
-
-    public function thumbnail(): string
-    {
-        return $this->thumbnail;
+        public readonly ProductId $id,
+        public readonly Category $category,
+        public readonly ProductName $name,
+        public readonly ?string $slug,
+        public readonly int $limit,
+        public readonly ?bool $published,
+        public readonly ?string $shareUrl,
+        public readonly string $thumbnail
+    ) {
     }
 }
