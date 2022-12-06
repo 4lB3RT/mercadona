@@ -3,19 +3,19 @@
 namespace Mercadona\Infrastructure\Domain\Product;
 
 use Mercadona\Domain\Category\Category;
+use Mercadona\Domain\Category\CategoryCollection;
 use Mercadona\Domain\Product\ProductCollection;
 use Mercadona\Domain\Product\Product;
 use Mercadona\Domain\Product\ProductId;
 use Mercadona\Domain\Product\ProductName;
-use Mercadona\Infrastructure\Domain\Category\CategoryDataTransformer;
 
 final class ProductDataTransformer
 {
-    public static function fromArray(array $result, Category $category): Product
+    public static function fromArray(array $result, CategoryCollection $categories): Product
     {
         return new Product(
             new ProductId($result["id"]),
-            $category,
+            $categories,
             new ProductName($result["display_name"]),
             isset($result["slug"]) ? $result["slug"] : null,
             $result["limit"],
@@ -25,11 +25,11 @@ final class ProductDataTransformer
         );
     }
 
-    public static function fromArrays(array $productsArray, Category $category): ProductCollection
+    public static function fromArrays(array $productsArray, CategoryCollection $categories): ProductCollection
     {
         $products = [];
         foreach ($productsArray as $productArray) {
-            $products[] = self::fromArray($productArray, $category);
+            $products[] = self::fromArray($productArray, $categories);
         }
 
         return new ProductCollection($products);
@@ -43,7 +43,7 @@ final class ProductDataTransformer
             "slug" => $product->slug,
             "limit" => $product->limit,
             "published" => $product->published,
-            "shareUrl" => $product->shareUrl,
+            "share_url" => $product->shareUrl,
             "thumbnail" =>  $product->thumbnail
         ];
     }

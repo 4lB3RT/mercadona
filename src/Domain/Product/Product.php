@@ -2,14 +2,14 @@
 
 namespace Mercadona\Domain\Product;
 
-use Mercadona\Domain\Category\Category;
+use Mercadona\Domain\Category\CategoryCollection;
 use Mercadona\Shared\Domain\Entity;
 
 final class Product extends Entity
 {
     public function __construct(
         public readonly ProductId $id,
-        public readonly Category $category,
+        private CategoryCollection $categories,
         public readonly ProductName $name,
         public readonly ?string $slug,
         public readonly int $limit,
@@ -18,4 +18,15 @@ final class Product extends Entity
         public readonly string $thumbnail
     ) {
     }
+
+    public function categories(): CategoryCollection
+    {
+        return $this->categories;
+    }
+
+    public function modifyCategories(CategoryCollection $categories): void
+    {
+        $this->categories = $categories;
+    }
+
 }

@@ -31,6 +31,11 @@ php artisan migrate
 php artisan save-categories
 ```
 
+- Download and process products from mercadona API
+```
+php artisan save-categories
+```
+
 # EndPoints
 
 - Get categories

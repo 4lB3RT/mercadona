@@ -4,7 +4,7 @@ namespace Mercadona\Infrastructure\Commands\Category;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use Mercadona\Application\Category\SaveCategoriesFromApi;
+use Mercadona\Application\Category\SaveCategoriesFromApi\SaveCategoriesFromApi;
 use Throwable;
 
 class SaveCategoriesFromApiArtisanCommand extends Command

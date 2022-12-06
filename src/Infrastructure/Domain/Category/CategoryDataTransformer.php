@@ -27,7 +27,7 @@ final class CategoryDataTransformer
             null
         );
 
-        $products = isset($result["products"]) ? ProductDataTransformer::fromArrays($result["products"], $category) : ProductCollection::empty();
+        $products = isset($result["products"]) ? ProductDataTransformer::fromArrays($result["products"], new CategoryCollection([$category])) : ProductCollection::empty();
 
         $category->modifyProducts($products);
 

@@ -5,12 +5,14 @@ namespace Mercadona\Application\Category\GetCategory;
 use Mercadona\Domain\Category\CategoryId;
 use Mercadona\Domain\Category\CategoryRepository;
 use Mercadona\Domain\Category\Service\FindAndSaveCategory;
+use Mercadona\Domain\Product\ProductRepository;
 use Mercadona\Shared\Application\Request;
 
 final class GetCategory
 {
     public function __construct(
         private readonly CategoryRepository $categoryRepository,
+        private readonly ProductRepository $productRepository,
         private readonly FindAndSaveCategory $findAndSaveCategory
     ) {}
 
