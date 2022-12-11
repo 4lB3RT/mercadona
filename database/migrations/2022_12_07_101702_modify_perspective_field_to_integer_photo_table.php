@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -8,15 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->bigInteger("ean")->change();
+        Schema::table('photos', function (Blueprint $table) {
+            $table->integer("perspective")->change();
         });
     }
 
     public function down(): void
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->bigInteger("ean")->change();
+        Schema::table('photos', function (Blueprint $table) {
+            $table->string("perspective")->change();
         });
     }
 };

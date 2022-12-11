@@ -11,28 +11,25 @@ final class EloquentCategoryRepository implements CategoryRepository
 {
     public function find(CategoryId $categoryId): Category
     {
-        return CategoryDataTransformer::fromModel(CategoryEloquent::with("categories")->find($categoryId->value));
+        return CategoryDataTransformer::fromModel(CategoryEloquent::with("categories")->findOrFail($categoryId->value));
     }
 
     public function findAll(): CategoryCollection
     {
         $categoryEloquent = new CategoryEloquent();
 
-        $categoryCollectionEloquent = $categoryEloquent->with("categories")->get();
+        $categoryCollectionEloquent = $categoryEloquent->with("categories", "products")->get();
 
         return CategoryDataTransformer::fromCollection($categoryCollectionEloquent);
     }
 
     public function save(Category $category): void
     {
+        $categoryArray = CategoryDataTransformer::fromEntity($category);
         CategoryEloquent::updateOrCreate(
             ['id' => $category->id->value],
-            CategoryDataTransformer::fromEntity($category)
+            $categoryArray
         );
-
-        if ($category->hasCategories()) {
-            $this->saveAll($category->categories());
-        } 
     }
 
     public function saveAll(CategoryCollection $categories): void
@@ -41,7 +38,7 @@ final class EloquentCategoryRepository implements CategoryRepository
         foreach ($categories->items() as $category) {
             $this->save($category);
 
-            if ($category->hasCategories()) {
+            if ($category->categories()->isEmpty() === false) {
                 $this->saveAll($category->categories());
             }
         }

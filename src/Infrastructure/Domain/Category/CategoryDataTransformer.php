@@ -15,7 +15,7 @@ use Mercadona\Infrastructure\Domain\Product\ProductDataTransformer;
 final class CategoryDataTransformer
 {
     public static function fromArray(array $result, ?array $parent): Category
-    {  
+    {
         $category = new Category(
             new CategoryId($result["id"]),
             $parent ? new CategoryId($parent["id"]) : null,
@@ -26,11 +26,11 @@ final class CategoryDataTransformer
             isset($result["categories"]) ? self::fromArrays($result["categories"], $result) : CategoryCollection::empty(),
             null
         );
-
+        
         $products = isset($result["products"]) ? ProductDataTransformer::fromArrays($result["products"], new CategoryCollection([$category])) : ProductCollection::empty();
-
+        
         $category->modifyProducts($products);
-
+        
         return $category;
     }
 
@@ -44,7 +44,7 @@ final class CategoryDataTransformer
         return new CategoryCollection($categories);
     }
 
-    public static function fromEntity(Category $category)
+    public static function fromEntity(Category $category): array
     {
        return [
             "id" => $category->id->value,
@@ -54,8 +54,8 @@ final class CategoryDataTransformer
             "status" => $category->status()->name,
             "published" => $category->published,
             "order" => $category->order,
-            "categories" => $category->hasCategories() ? self::fromEntities($category->categories()) : null,
-            "products" => $category->hasProducts() ? ProductDataTransformer::fromEntities($category->products()) : null
+            "categories" => $category->categories()->isEmpty() ? CategoryCollection::empty() : self::fromEntities($category->categories()),
+            "products" => $category->products()->isEmpty() ? ProductCollection::empty() : ProductDataTransformer::fromEntities($category->products())
         ];
     }
 
@@ -92,7 +92,7 @@ final class CategoryDataTransformer
             (bool) $model->published,
             $model->order,
             !empty($model->categories) ? self::fromCollection($model->categories) : CategoryCollection::empty(),
-            ProductCollection::empty()
+            !empty($model->products) ? ProductDataTransformer::fromCollection($model->products) : ProductCollection::empty(),
         );
     }
 

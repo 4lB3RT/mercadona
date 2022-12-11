@@ -39,14 +39,14 @@ abstract class Collection implements Countable, IteratorAggregate
 
     public function isEmpty(): bool
     {
-        return $this->items !== null ? false : true;
+        return empty($this->items) ? true : false;
     }
 
     public function ids(): array
     {
         $itemsIds = [];
         foreach ($this->items() as $item) {
-            $itemsIds[] = $item->id->value;
+            $itemsIds[] = (int) $item->id->value;
         }
 
         return $itemsIds;

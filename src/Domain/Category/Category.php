@@ -33,11 +33,6 @@ final class Category extends Entity
         return $this->categories;
     }
 
-    public function hasCategories(): bool
-    {
-        return !$this->categories()?->isEmpty();
-    }
-
     public function modifyCategories(CategoryCollection $categories): void
     {
         $this->categories = $categories;
@@ -56,11 +51,6 @@ final class Category extends Entity
     public function modifyProducts(ProductCollection $products): void
     {
         $this->products = $products;
-    }
-
-    public function isParent(): bool
-    {
-        return $this->hasCategories();
     }
 
     public function hasParent(): bool

@@ -14,13 +14,13 @@ final class PriceDataTransformer
     public static function fromArray(array $result): Price
     {
         $price = new Price(
-            isset($result["id"]) ? new PriceId((int) $result["id"]) : null,
+                isset($result["id"]) ? new PriceId((int) $result["id"]) : null,
             Iva::tryFrom($result["iva"]),
             $result["is_new"],
             $result["is_pack"],
             $result["pack_size"],
             (int) $result["unit_name"],
-            $result["unit_size"],
+            isset($result["unit_size"]) ? $result["unit_size"] : 0,
             (float) $result["bulk_price"],
             (float) $result["unit_price"],
             $result["approx_size"],

@@ -11,8 +11,16 @@ final class CategoryCollection extends Collection
         return Category::class;
     }
 
-    public function isEmpty(): bool
+    public function ids(): array
     {
-        return $this->items !== null ? false : true;
+        $itemsIds = [];
+        foreach ($this->items() as $category) {
+            if ($category->categories()->isEmpty() === false) {
+                $itemsIds = $category->categories()->ids();
+            }
+            $itemsIds[] = (int) $category->id->value;
+        }
+
+        return $itemsIds;
     }
 }

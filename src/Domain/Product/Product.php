@@ -3,7 +3,7 @@
 namespace Mercadona\Domain\Product;
 
 use Mercadona\Domain\Category\CategoryCollection;
-use Mercadona\Domain\Price\Price;
+use Mercadona\Domain\Photo\PhotoCollection;
 use Mercadona\Domain\Price\PriceCollection;
 use Mercadona\Shared\Domain\Entity;
 
@@ -24,6 +24,7 @@ final class Product extends Entity
         public readonly ?string $isVariableWeight,
         private CategoryCollection $categories,
         private ?PriceCollection $prices,
+        private PhotoCollection $photos,
     ) {
     }
 
@@ -50,5 +51,15 @@ final class Product extends Entity
     public function hasPrices(): bool
     {
         return $this->prices() ? true : false;
+    }
+
+    public function photos(): ?PhotoCollection
+    {
+        return $this->photos;
+    }
+
+    public function modifyPhotos(PhotoCollection $photos): void
+    {
+        $this->photos = $photos;
     }
 }

@@ -11,7 +11,7 @@ final class EloquentProductRepository implements ProductRepository
 {
     public function find(ProductId $productId): Product
     {
-        return ProductDataTransformer::fromModel(ProductEloquent::with("categories", "prices")->find($productId->value));
+        return ProductDataTransformer::fromModel(ProductEloquent::with("categories", "prices", "photos")->findOrFail($productId->value));
     }
 
     public function findAll(): ProductCollection
@@ -28,11 +28,15 @@ final class EloquentProductRepository implements ProductRepository
         $productEloquent = new ProductEloquent();
         $productArray = ProductDataTransformer::fromEntity($product);
         $productEloquentSaved = $productEloquent->updateOrCreate(
-            ['id' => $product->id->value],
+            ['id' => $product->id ->value],
             $productArray
         );
 
-        $productEloquentSaved->categories()->sync(implode(",", $product->categories()->ids()));
-        $productEloquentSaved->prices()->sync(implode(",", $product->prices()->ids()));
+        $productModel = $productEloquentSaved->findOrFail($product->id ->value);
+        $productModel->categories()->sync($product->categories()->ids());
+        $productModel->prices()->attach($product->prices()->ids());
+        if (!$product->photos()->isEmpty()) {
+            $productModel->photos()->attach($product->photos()->ids());
+        }
     }
 }

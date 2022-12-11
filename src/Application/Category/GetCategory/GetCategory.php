@@ -26,7 +26,7 @@ final class GetCategory
         if ($categoryWithOutProcess->hasParent()) {
             $parent = $this->categoryRepository->find($categoryWithOutProcess->parentId);
         }
-
+        
         $categoryProcessed = $this->findAndSaveCategory->findAndSave($categoryWithOutProcess, $parent);
 
         return new GetCategoryResponse($categoryProcessed);

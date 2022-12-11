@@ -43,14 +43,16 @@ final class ApiCategoryRepository implements CategoryReadRepository
       try{
         $client = new Client([ 'base_uri' => 'https://tienda.mercadona.es/api/']);
         $response = $client->request('GET', 'categories/'.$category->id->value);
-
+        
         
         $response = (array) json_decode($response->getBody()->getContents(), true);
-        
+
+        $categoryArray = CategoryDataTransformer::fromEntity($category);
+
         $categories = CategoryDataTransformer::fromArrays(
           $response["categories"],
-          CategoryDataTransformer::fromEntity($category)
-        );        
+          $categoryArray
+        );
             
         $category->modifyCategories($categories);    
         

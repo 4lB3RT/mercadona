@@ -3,6 +3,7 @@
 namespace Mercadona\Infrastructure\Domain\Category;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Mercadona\Infrastructure\Domain\Product\ProductEloquent;
 
@@ -17,8 +18,8 @@ final class CategoryEloquent extends Model
         return $this->hasMany(CategoryEloquent::class, "category_id", "id");
     }
 
-    public function products()
+    public function products(): BelongsToMany
     {
-      return $this->belongsToMany(ProductEloquent::class);
+      return $this->belongsToMany(ProductEloquent::class, "products_categories", "category_id", "product_id")->withTimestamps();
     }
 }

@@ -21,10 +21,9 @@ final class GetProduct
     public function execute(Request $request): GetProductResponse
     {
         $productId = new ProductId($request->productId);
-        $product = $this->productRepository->find($productId);
-
-        $productWithDetail = $this->productReadRepository->findDetailProduct($product);
-
+        
+        $productWithDetail = $this->productReadRepository->findDetailProduct($productId);
+                
         $this->saveProduct->save($productWithDetail);
 
         return new GetProductResponse($productWithDetail);
