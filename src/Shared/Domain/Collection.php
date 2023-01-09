@@ -7,6 +7,8 @@ namespace Mercadona\Shared\Domain;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
+use Mercadona\Domain\Category\IntegerId;
+use Ramsey\Uuid\Type\Integer;
 
 abstract class Collection implements Countable, IteratorAggregate
 {
@@ -50,5 +52,16 @@ abstract class Collection implements Countable, IteratorAggregate
         }
 
         return $itemsIds;
+    }
+
+    public function find(IntegerId $id): ?Entity
+    {
+        foreach ($this->items as $item) {
+            if ($item->id()->equals($id)) {
+                return $item;
+            }
+        }
+
+        return null;
     }
 }

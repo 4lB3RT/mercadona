@@ -5,12 +5,12 @@ namespace Mercadona\Infrastructure\Domain\Product;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Mercadona\Domain\Category\CategoryCollection;
+use Mercadona\Domain\Category\CategoryIdCollection;
 use Mercadona\Domain\Photo\PhotoCollection;
 use Mercadona\Domain\Product\ProductCollection;
 use Mercadona\Domain\Product\Product;
 use Mercadona\Domain\Product\ProductId;
 use Mercadona\Domain\Product\ProductName;
-use Mercadona\Infrastructure\Domain\Category\CategoryDataTransformer;
 use Mercadona\Infrastructure\Domain\Photo\PhotoDataTransformer;
 use Mercadona\Infrastructure\Domain\Price\PriceDataTransformer;
 
@@ -31,7 +31,7 @@ final class ProductDataTransformer
             isset($result["share_url"]) ? $result["share_url"] : null,
             $result["thumbnail"],
             isset($result["isVariableWeight"]) ? $result["isVariableWeight"] : null,
-            isset($result["categories"]) ? CategoryDataTransformer::fromArrays($result["categories"], null) : CategoryCollection::empty(),
+            CategoryIdCollection::empty(),
             isset($result["price_instructions"]) ? PriceDataTransformer::fromArrays($result["price_instructions"]) : null,
             isset($result["photos"]) ? PhotoDataTransformer::fromArrays($result["photos"]) : PhotoCollection::empty()
         );
@@ -50,19 +50,18 @@ final class ProductDataTransformer
     public static function fromEntity(Product $product): array
     {
        return [
-            "id" => $product->id->value,
-            "name" => $product->name->value,
-            "ean" => $product->ean,
-            "slug" => $product->slug,
-            "brand" => $product->brand,
-            "limit" => $product->limit,
-            "origin" => $product->origin,
-            "packaging" => $product->packaging,
-            "published" => $product->published,
-            "share_url" => $product->shareUrl,
-            "thumbnail" => $product->thumbnail,
-            "is_variable_weight" => $product->isVariableWeight,
-            //"categories" => CategoryDataTransformer::fromEntities($product->categories()),
+            "id" => $product->id()->value,
+            "name" => $product->name()->value,
+            "ean" => $product->ean(),
+            "slug" => $product->slug(),
+            "brand" => $product->brand(),
+            "limit" => $product->limit(),
+            "origin" => $product->origin(),
+            "packaging" => $product->packaging(),
+            "published" => $product->published(),
+            "share_url" => $product->shareUrl(),
+            "thumbnail" => $product->thumbnail(),
+            "is_variable_weight" => $product->isVariableWeight(),
             "prices" => PriceDataTransformer::fromEntities($product->prices()),
         ];
     }
@@ -105,7 +104,7 @@ final class ProductDataTransformer
             $model->share_url,
             $model->thumbnail,
             $model->isVariableWeight,
-            CategoryCollection::empty(),
+            CategoryIdCollection::empty(),
             ($model->prices !== null) ? PriceDataTransformer::fromCollection($model->prices) : null,
             ($model->photos !== null) ? PhotoDataTransformer::fromCollection($model->photos) : null,
             

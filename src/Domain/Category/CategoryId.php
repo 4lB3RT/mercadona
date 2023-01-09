@@ -2,10 +2,6 @@
 
 namespace Mercadona\Domain\Category;
 
-final class CategoryId
+final class CategoryId extends IntegerId
 {
-    public function __construct(
-        public readonly int $value
-    ) {
-    }
 }

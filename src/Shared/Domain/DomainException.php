@@ -4,6 +4,6 @@ namespace Mercadona\Shared\Domain;
 
 use Exception;
 
-final class DomainException extends Exception
+abstract class DomainException extends Exception
 {
 }

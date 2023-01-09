@@ -2,8 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Mercadona\Application\Category\GetCategories\GetCategories;
-use Mercadona\Application\Category\GetCategory\GetCategory;
 use Mercadona\Infrastructure\Controllers\Category\GetCategoriesController;
 use Mercadona\Infrastructure\Controllers\Category\GetCategoryController;
 use Mercadona\Infrastructure\Controllers\Product\GetProductController;
@@ -30,6 +28,6 @@ Route::group(['prefix'=>'categories'], function(){
 });
 
 Route::group(['prefix'=>'products'], function(){
-    Route::get('/', GetCategoriesController::class)->name("categories");
+    Route::get('/', GetProductsController::class)->name("categories");
     Route::get('/{categoryId}', GetProductController::class)->name("category");
 });

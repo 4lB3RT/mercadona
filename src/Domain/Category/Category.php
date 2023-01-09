@@ -8,15 +8,30 @@ use Mercadona\Shared\Domain\Entity;
 final class Category extends Entity
 {
     public function __construct(
-        public readonly CategoryId $id,
-        public readonly ?CategoryId $parentId,
-        public readonly CategoryName $name,
+        private readonly CategoryId $id,
+        private readonly ?CategoryId $parentId,
+        private readonly CategoryName $name,
         private CategoryStatus $status,
-        public readonly ?bool $published = false,
-        public readonly ?int $order,
+        private readonly ?bool $published = false,
+        private readonly ?int $order,
         private CategoryCollection $categories,
         private ?ProductCollection $products
     ) {}
+
+    public function id(): CategoryId
+    {
+        return $this->id;
+    }
+
+    public function parentId(): ?CategoryId
+    {
+        return $this->parentId;
+    }
+
+    public function name(): CategoryName
+    {
+        return $this->name;
+    }
 
     public function status(): CategoryStatus
     {
@@ -26,6 +41,16 @@ final class Category extends Entity
     public function modifyStatus(CategoryStatus $status): void
     {
         $this->status = $status;
+    }
+
+    public function published(): ?bool
+    {
+        return $this->published;
+    }
+
+    public function order(): ?int
+    {
+        return $this->order;
     }
 
     public function categories(): CategoryCollection
