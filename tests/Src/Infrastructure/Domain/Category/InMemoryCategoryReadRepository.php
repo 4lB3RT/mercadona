@@ -1,6 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Mercadona\Domain\Category;
+namespace Tests\Mercadona\Infrastructure\Domain\Category;
+
+use Mercadona\Domain\Category\Category;
+use Mercadona\Domain\Category\CategoryCollection;
+use Mercadona\Domain\Category\CategoryReadRepository;
+use Mercadona\Domain\Category\CategoryNotFoundException;
 
 final class InMemoryCategoryReadRepository implements CategoryReadRepository
 {
@@ -12,7 +17,7 @@ final class InMemoryCategoryReadRepository implements CategoryReadRepository
             return $category->hasParent();
         });
 
-        return new CategoryCollection(...$parentCategories);
+        return new CategoryCollection(...[$parentCategories]);
     }
 
     public function findDetailCategory(Category $category, ?Category $parent = null): Category
@@ -28,8 +33,13 @@ final class InMemoryCategoryReadRepository implements CategoryReadRepository
 
         $categories = $parent->categories();
         $categories->addChild($category);
-        $parent->updateCategories($category);
+        $parent->modifyCategories($categories);
 
         return $parent;
+    }
+
+    public function save(Category $category): void
+    {
+        $this->categories[] = $category;
     }
 }

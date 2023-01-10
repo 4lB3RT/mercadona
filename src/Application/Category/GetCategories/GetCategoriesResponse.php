@@ -8,7 +8,12 @@ use Mercadona\Shared\Application\Response;
 final class GetCategoriesResponse implements Response
 {
     public function __construct(
-        public readonly CategoryCollection $categories
+        private readonly CategoryCollection $categories
     ) {
+    }
+
+    public function categories(): CategoryCollection
+    {
+        return $this->categories;
     }
 }

@@ -54,7 +54,7 @@ abstract class Collection implements Countable, IteratorAggregate
         return $itemsIds;
     }
 
-    public function find(IntegerId $id): ?Entity
+    public function findOrNull(IntegerId $id): ?Entity
     {
         foreach ($this->items as $item) {
             if ($item->id()->equals($id)) {

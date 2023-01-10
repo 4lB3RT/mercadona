@@ -15,4 +15,10 @@ final class CategoryCollectionExample {
     {
         return new CategoryCollection([CategoryExample::random()]);
     }
+
+    public static function empty(): CategoryCollection
+    {
+        return new CategoryCollection([]);
+    }
+
 }

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Mercadona\Infrastructure\Category;
+namespace Tests\Mercadona\Infrastructure\Domain\Category;
 
 use Mercadona\Domain\Category\Category;
 use Mercadona\Domain\Category\CategoryId;
@@ -25,7 +25,7 @@ final class InMemoryCategoryRepository implements CategoryRepository
 
     public function findAll(): CategoryCollection
     {
-        return new CategoryCollection(...$this->categories);
+        return new CategoryCollection(...[$this->categories]);
     }
 
     public function save(Category $category): void
