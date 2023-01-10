@@ -2,10 +2,8 @@
 
 namespace Mercadona\Domain\Category;
 
-final class CategoryName
+use Mercadona\Shared\Domain\StringValue;
+
+final class CategoryName extends StringValue
 {
-    public function __construct(
-        public readonly string $value
-    ) {
-    }
 }
