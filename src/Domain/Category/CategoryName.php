@@ -4,6 +4,4 @@ namespace Mercadona\Domain\Category;
 
 use Mercadona\Shared\Domain\StringValue;
 
-final class CategoryName extends StringValue
-{
-}
+final class CategoryName extends StringValue {}
