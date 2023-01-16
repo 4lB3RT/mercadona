@@ -2,29 +2,45 @@
 
 namespace Tests\Mercadona\Domain\Product;
 
+use Mercadona\Domain\Category\CategoryIdCollection;
+use Mercadona\Domain\Photo\PhotoCollection;
+use Mercadona\Domain\Price\PriceCollection;
 use Mercadona\Domain\Product\Product;
 use Mercadona\Domain\Product\ProductId;
 use Mercadona\Domain\Product\ProductName;
-use Tests\Mercadona\Domain\Category\CategoryCollectionExample;
-use Tests\Mercadona\Domain\Category\ProductIdExample;
-use Tests\Mercadona\Domain\Category\ProductNameExample;
+use Tests\Mercadona\Domain\Category\CategoryIdExample;
+use Tests\Mercadona\Domain\Photo\PhotoExample;
+use Tests\Mercadona\Domain\Price\PriceExample;
 use Tests\Mercadona\Shared\Domain\BoolExample;
 use Tests\Mercadona\Shared\Domain\IntegerExample;
 use Tests\Mercadona\Shared\Domain\StringExample;
 
-final class ProductExmaple {
+final class ProductExample {
 
     public static function dummy(): Product
     {
         return new Product(
             new ProductId(1),
-            CategoryCollectionExample::dummy(),
-            new ProductName("Dummy"),
-            "dummy-slug",
-            999,
+            new ProductName("Dummy Product"),
+            null,
+            null,
+            "Dummy Brand",
+            10,
+            "Dummy Origin",
+            "Dummy Packaging",
             true,
-            "https://dummyproduct.com",
-            "https://dummyproduct.com/images/file.jpg?fit=crop&h=300&w=300",
+            "dummy-product",
+            "dummy-thumbnail.jpg",
+            null,
+            new CategoryIdCollection([
+                CategoryIdExample::dummy(),
+            ]),
+            new PriceCollection([
+                PriceExample::dummy(),
+            ]),
+            new PhotoCollection([
+                PhotoExample::dummy()
+            ])
         );
     }
 
@@ -32,13 +48,20 @@ final class ProductExmaple {
     {
         return new Product(
             ProductIdExample::random(),
-            CategoryCollectionExample::random(),
             ProductNameExample::random(),
+            IntegerExample::random(),
+            StringExample::random(),
             StringExample::random(),
             IntegerExample::random(),
+            StringExample::random(),
+            StringExample::random(),
             BoolExample::random(),
             StringExample::random(),
             StringExample::random(),
+            StringExample::random(),
+            CategoryIdCollection::empty(),
+            PriceCollection::empty(),
+            PhotoCollection::empty()
         );
     }
 }

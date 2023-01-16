@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Mercadona\Domain\Category;
+namespace Tests\Mercadona\Domain\Product;
 
 use Mercadona\Domain\Product\ProductId;
 use Tests\Mercadona\Shared\Domain\IntegerExample;
