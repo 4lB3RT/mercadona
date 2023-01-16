@@ -89,9 +89,9 @@ final class Product extends Entity
         return $this->isVariableWeight;
     }
 
-    public function categoryIds(): CategoryCollection
+    public function categoryIds(): CategoryIdCollection
     {
-        return $this->categories;
+        return $this->categoryIds;
     }
 
     public function modifyCategoryIds(CategoryIdCollection $categoryIds): void
@@ -111,7 +111,7 @@ final class Product extends Entity
 
     public function hasPrices(): bool
     {
-        return $this->prices() ? true : false;
+        return !$this->prices()->isEmpty() ? true : false;
     }
 
     public function photos(): ?PhotoCollection

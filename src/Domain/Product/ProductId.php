@@ -2,10 +2,6 @@
 
 namespace Mercadona\Domain\Product;
 
-final class ProductId
-{
-    public function __construct(
-        public readonly int $value
-    ) {
-    }
-}
+use Mercadona\Shared\Domain\IntegerId;
+
+final class ProductId extends IntegerId {}
