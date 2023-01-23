@@ -10,9 +10,11 @@
         "guzzlehttp/guzzle": "^7.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "phpunit/php-code-coverage": "^9.2"
     },
     "require-dev": {
+        "brianium/paratest": "^6.8",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
