@@ -2,10 +2,6 @@
 
 namespace Mercadona\Domain\Photo;
 
-final class PhotoId
-{
-    public function __construct(
-        public readonly int $value
-    ) {
-    }
-}
+use Mercadona\Shared\Domain\IntegerId;
+
+final class PhotoId extends IntegerId {}
