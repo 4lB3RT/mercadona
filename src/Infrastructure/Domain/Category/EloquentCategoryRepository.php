@@ -11,7 +11,7 @@ final class EloquentCategoryRepository implements CategoryRepository
 {
     public function find(CategoryId $categoryId): Category
     {
-        return CategoryDataTransformer::fromModel(CategoryEloquent::with("categories")->findOrFail($categoryId->value));
+        return CategoryDataTransformer::fromModel(CategoryEloquent::with("categories")->findOrFail($categoryId->value()));
     }
 
     public function findAll(): CategoryCollection
@@ -27,7 +27,7 @@ final class EloquentCategoryRepository implements CategoryRepository
     {
         $categoryArray = CategoryDataTransformer::fromEntity($category);
         CategoryEloquent::updateOrCreate(
-            ['id' => $category->id->value],
+            ['id' => $category->id()->value()],
             $categoryArray
         );
     }

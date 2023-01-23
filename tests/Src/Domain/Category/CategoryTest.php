@@ -2,13 +2,13 @@
 
 namespace Tests\Mercadona\Domain\Category;
 
-use Tests\TestCase;
 use Mercadona\Domain\Category\Category;
 use Mercadona\Domain\Category\CategoryId;
 use Mercadona\Domain\Category\CategoryName;
 use Mercadona\Domain\Category\CategoryStatus;
 use Mercadona\Domain\Product\ProductCollection;
 use Mercadona\Domain\Category\CategoryCollection;
+use PHPUnit\Framework\TestCase;
 use Tests\Mercadona\Domain\Product\ProductCollectionExample;
 
 final class CategoryTest extends TestCase {
@@ -24,7 +24,16 @@ final class CategoryTest extends TestCase {
         $categories = CategoryCollection::empty();
         $products = ProductCollection::empty();
 
-        $category = new Category($id, $parentId, $name, $status, $published, $order, $categories, $products);
+        $category = new Category(
+            id: $id,
+            name: $name,
+            status: $status,
+            categories: $categories,
+            products: $products,
+            parentId: $parentId,
+            published: $published, 
+            order: $order,
+        );
 
         $this->assertSame($id, $category->id());
         $this->assertSame($parentId, $category->parentId());
@@ -102,14 +111,14 @@ final class CategoryTest extends TestCase {
         $this->assertTrue($category->hasParent());
 
         $categoryWithoutParent = new Category(
-            new CategoryId(1),
-            null,
-            new CategoryName("Dummy"),
-            CategoryStatus::READY,
-            true,
-            0,
-            CategoryCollectionExample::empty(),
-            ProductCollectionExample::empty()
+            id: new CategoryId(1),
+            name: new CategoryName("Dummy"),
+            status: CategoryStatus::READY,
+            categories: CategoryCollectionExample::empty(),
+            products: ProductCollectionExample::empty(),
+            parentId: null,
+            order: 0,
+            published: true
         );
         $this->assertFalse($categoryWithoutParent->hasParent());
     }

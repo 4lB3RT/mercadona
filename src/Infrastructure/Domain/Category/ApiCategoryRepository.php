@@ -42,7 +42,7 @@ final class ApiCategoryRepository implements CategoryReadRepository
       
       try{
         $client = new Client([ 'base_uri' => 'https://tienda.mercadona.es/api/']);
-        $response = $client->request('GET', 'categories/'.$category->id->value);
+        $response = $client->request('GET', 'categories/'.$category->id()->value());
         
         
         $response = (array) json_decode($response->getBody()->getContents(), true);
@@ -63,7 +63,7 @@ final class ApiCategoryRepository implements CategoryReadRepository
         if ($code === Response::HTTP_GONE) {
           $categories = array_filter(
             $parent->categories()->items(),
-            fn(Category $categoryChildren) => $categoryChildren->id->value === $category->id->value
+            fn(Category $categoryChildren) => $categoryChildren->id()->value() === $category->id()->value()
           );
 
           $category = current($categories);

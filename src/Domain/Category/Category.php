@@ -9,13 +9,13 @@ final class Category extends Entity
 {
     public function __construct(
         private readonly CategoryId $id,
-        private readonly ?CategoryId $parentId,
         private readonly CategoryName $name,
         private CategoryStatus $status,
-        private readonly ?bool $published = false,
-        private readonly ?int $order,
         private CategoryCollection $categories,
-        private ?ProductCollection $products
+        private ?ProductCollection $products,
+        private readonly ?CategoryId $parentId,
+        private readonly ?int $order,
+        private readonly ?bool $published = false,
     ) {}
 
     public function id(): CategoryId

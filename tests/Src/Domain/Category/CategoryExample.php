@@ -15,28 +15,28 @@ final class CategoryExample {
     public static function dummy(): Category
     {
         return new Category(
-            new CategoryId(1),
-            new CategoryId(1000),
-            new CategoryName("Dummy"),
-            CategoryStatus::READY,
-            true,
-            0,
-            CategoryCollectionExample::empty(),
-            ProductCollectionExample::empty()
+            id: new CategoryId(1),
+            name: new CategoryName("Dummy"),
+            status: CategoryStatus::READY,        
+            categories: CategoryCollectionExample::empty(),
+            products: ProductCollectionExample::empty(),
+            parentId: new CategoryId(1000),
+            published: true,
+            order: 0
         );
     }
 
     public static function random(): Category
     {
         return new Category(
-            CategoryIdExample::random(),
-            CategoryIdExample::random(),
-            CategoryNameExample::random(),
-            CategoryStatus::READY,
-            BoolExample::random(),
-            IntegerExample::random(),
-            CategoryCollectionExample::empty(),
-            ProductCollectionExample::empty()
+            id: CategoryIdExample::random(),
+            name: CategoryNameExample::random(),
+            status: CategoryStatus::READY,
+            categories: CategoryCollectionExample::empty(),
+            products: ProductCollectionExample::empty(),
+            parentId: CategoryIdExample::random(),
+            published: BoolExample::random(),
+            order: IntegerExample::random(),
         );
     }
 }

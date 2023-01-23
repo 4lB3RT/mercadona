@@ -12,7 +12,7 @@ final class GetCategoriesPresenter implements JsonPresenter
 { 
     public function toJson(Response $response): string
     {
-        $categories = $response->categories;
+        $categories = $response->categories();
 
         $categoriesArray = [];
 
@@ -22,14 +22,14 @@ final class GetCategoriesPresenter implements JsonPresenter
             $products = ProductDataTransformer::fromEntities($category->products());
             
             $categoriesArray[] = [
-                "id" => $category->id->value,
-                "parentId" => $category->parentId?->value,
-                "name" => $category->name->value,
+                "id" => $category->id()->value(),
+                "name" => $category->name()->value(),
                 "status" => $category->status(),
-                "published" => $category->published,
-                "order" => $category->order,
                 "categories" => CategoryDataTransformer::fromEntities($category->categories()),
-                "products" => $products
+                "products" => $products,
+                "parentId" => $category->parentId()?->value(),
+                "order" => $category->order(),
+                "published" => $category->published(),
             ];
         }
 
