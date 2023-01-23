@@ -4,7 +4,6 @@ namespace Mercadona\Infrastructure\Domain\Product;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Mercadona\Domain\Category\CategoryCollection;
 use Mercadona\Domain\Category\CategoryIdCollection;
 use Mercadona\Domain\Photo\PhotoCollection;
 use Mercadona\Domain\Product\ProductCollection;
@@ -50,8 +49,8 @@ final class ProductDataTransformer
     public static function fromEntity(Product $product): array
     {
        return [
-            "id" => $product->id()->value,
-            "name" => $product->name()->value,
+            "id" => $product->id()->value(),
+            "name" => $product->name()->value(),
             "ean" => $product->ean(),
             "slug" => $product->slug(),
             "brand" => $product->brand(),

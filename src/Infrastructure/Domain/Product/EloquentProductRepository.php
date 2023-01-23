@@ -28,11 +28,11 @@ final class EloquentProductRepository implements ProductRepository
         $productEloquent = new ProductEloquent();
         $productArray = ProductDataTransformer::fromEntity($product);
         $productEloquentSaved = $productEloquent->updateOrCreate(
-            ['id' => $product->id()->value],
+            ['id' => $product->id()->value()],
             $productArray
         );
 
-        $productModel = $productEloquentSaved->findOrFail($product->id()->value);
+        $productModel = $productEloquentSaved->findOrFail($product->id()->value());
         $productModel->categories()->sync($product->categoryIds()->ids());
         $productModel->prices()->attach($product->prices()->ids());
         if (!$product->photos()->isEmpty()) {
