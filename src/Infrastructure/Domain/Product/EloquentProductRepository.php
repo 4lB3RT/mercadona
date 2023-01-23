@@ -2,6 +2,9 @@
 
 namespace Mercadona\Infrastructure\Domain\Product;
 
+use Mercadona\Domain\Photo\PhotoRepository;
+use Mercadona\Domain\Price\PriceCollection;
+use Mercadona\Domain\Price\PriceRepository;
 use Mercadona\Domain\Product\Product;
 use Mercadona\Domain\Product\ProductCollection;
 use Mercadona\Domain\Product\ProductId;
@@ -9,6 +12,11 @@ use Mercadona\Domain\Product\ProductRepository;
 
 final class EloquentProductRepository implements ProductRepository
 {
+    public function __construct(
+        private readonly PriceRepository $priceRepository,
+        private readonly PhotoRepository $photoRepository
+    ) {}
+
     public function find(ProductId $productId): Product
     {
         return ProductDataTransformer::fromModel(ProductEloquent::with("categories", "prices", "photos")->findOrFail($productId->value));
@@ -23,20 +31,24 @@ final class EloquentProductRepository implements ProductRepository
         return ProductDataTransformer::fromCollection($productCollectionEloquent);
     }
 
-    public function save(Product $product): void
+    public function save(Product $product): Product
     {
-        $productEloquent = new ProductEloquent();
         $productArray = ProductDataTransformer::fromEntity($product);
-        $productEloquentSaved = $productEloquent->updateOrCreate(
+        $productEloquentSaved = ProductEloquent::updateOrCreate(
             ['id' => $product->id()->value()],
             $productArray
         );
 
-        $productModel = $productEloquentSaved->findOrFail($product->id()->value());
-        $productModel->categories()->sync($product->categoryIds()->ids());
-        $productModel->prices()->attach($product->prices()->ids());
-        if (!$product->photos()->isEmpty()) {
-            $productModel->photos()->attach($product->photos()->ids());
+        if (!$product->prices()->isEmpty()) {
+            $prices = $this->priceRepository->saveAll($product->prices());
+            $productEloquentSaved->prices()->attach($prices->ids());
         }
+        
+        if (!$product->photos()->isEmpty()) {
+            $photos = $this->photoRepository->saveAll($product->photos());
+            $productEloquentSaved->photos()->attach($product->photos()->ids());
+        }
+
+        return ProductDataTransformer::fromModel($productEloquentSaved);
     }
 }

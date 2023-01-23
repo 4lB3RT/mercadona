@@ -8,5 +8,5 @@ interface ProductRepository
 
     public function findAll(): ProductCollection; 
 
-    public function save(Product $product): void;
+    public function save(Product $product): Product;
 }
