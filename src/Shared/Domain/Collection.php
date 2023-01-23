@@ -48,7 +48,7 @@ abstract class Collection implements Countable, IteratorAggregate
     {
         $itemsIds = [];
         foreach ($this->items() as $item) {
-            $itemsIds[] = (int) $item->id->value;
+            $itemsIds[] = (int) $item->id()->value();
         }
 
         return $itemsIds;
