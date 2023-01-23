@@ -14,7 +14,7 @@ final class PriceDataTransformer
     public static function fromArray(array $result): Price
     {
         $price = new Price(
-                isset($result["id"]) ? new PriceId((int) $result["id"]) : null,
+            isset($result["id"]) ? new PriceId((int) $result["id"]) : null,
             Iva::tryFrom($result["iva"]),
             $result["is_new"],
             $result["is_pack"],
@@ -51,27 +51,27 @@ final class PriceDataTransformer
     public static function fromEntity(Price $price): array
     {
        return [
-            "id" => $price->id?->value,
-            "iva" => $price->iva->value,
-            "is_new" => $price->isNew,
-            "is_pack" => $price->isPack,
-            "pack_size" => $price->packSize,
-            "unit_name" => $price->unitName,
-            "unit_size" => $price->unitSize,
-            "bulk_price" => $price->bulkPrice,
-            "unit_price" => $price->unitPrice,
-            "approx_size" => $price->approxSize,
-            "size_format" => $price->sizeFormat,
-            "total_units" => $price->totalUnits,
-            "unit_selector" => $price->unitSelector,
-            "bunch_selector" => $price->bunchSelector,
-            "drained_weight" => $price->drainedWeight,
-            "selling_method" => $price->sellingMethod,
-            "price_decreased" => $price->priceDecreased,
-            "reference_price" => $price->referencePrice,
-            "min_bunch_amount" => $price->minBunchAmount,
-            "reference_format" => $price->referenceFormat,
-            "increment_bunch_amount" => $price->incrementBunchAmount,
+            "id" => $price->id()?->value(),
+            "iva" => $price->iva()->value,
+            "is_new" => $price->isNew(),
+            "is_pack" => $price->isPack(),
+            "pack_size" => $price->packSize(),
+            "unit_name" => $price->unitName(),
+            "unit_size" => $price->unitSize(),
+            "bulk_price" => $price->bulkPrice(),
+            "unit_price" => $price->unitPrice(),
+            "approx_size" => $price->approxSize(),
+            "size_format" => $price->sizeFormat(),
+            "total_units" => $price->totalUnits(),
+            "unit_selector" => $price->unitSelector(),
+            "bunch_selector" => $price->bunchSelector(),
+            "drained_weight" => $price->drainedWeight(),
+            "selling_method" => $price->sellingMethod(),
+            "price_decreased" => $price->priceDecreased(),
+            "reference_price" => $price->referencePrice(),
+            "min_bunch_amount" => $price->minBunchAmount(),
+            "reference_format" => $price->referenceFormat(),
+            "increment_bunch_amount" => $price->incrementBunchAmount(),
         ];
     }
 

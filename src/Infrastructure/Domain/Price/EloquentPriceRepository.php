@@ -11,14 +11,14 @@ final class EloquentPriceRepository implements PriceRepository
 {
     public function find(PriceId $priceId): Price
     {
-        return PriceDataTransformer::fromModel(PriceEloquent::find($priceId->value));
+        return PriceDataTransformer::fromModel(PriceEloquent::find($priceId->value()));
     }
 
     public function save(Price $price): Price
     {
         $priceEloquent = new PriceEloquent();
         $priceEloquentSaved = $priceEloquent->updateOrCreate(
-            ['id' => $price->id?->value],
+            ['id' => $price->id()?->value()],
             PriceDataTransformer::fromEntity($price)
         );
 
