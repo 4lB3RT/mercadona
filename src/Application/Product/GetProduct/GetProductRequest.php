@@ -7,7 +7,12 @@ use Mercadona\Shared\Application\Request;
 final class GetProductRequest implements Request
 {
     public function __construct(
-        public readonly int $productId
+        private readonly int $productId
     ) {
+    }
+
+    public function productId(): int
+    {
+        return $this->productId;
     }
 }

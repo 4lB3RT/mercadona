@@ -8,7 +8,12 @@ use Mercadona\Shared\Application\Response;
 final class GetProductResponse implements Response
 {
     public function __construct(
-        public readonly Product $product
+        private readonly Product $product
     ) {
+    }
+
+    public function product(): Product
+    {
+        return $this->product;
     }
 }
