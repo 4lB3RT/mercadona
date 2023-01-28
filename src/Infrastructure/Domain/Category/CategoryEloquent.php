@@ -20,6 +20,6 @@ final class CategoryEloquent extends Model
 
     public function products(): BelongsToMany
     {
-      return $this->belongsToMany(ProductEloquent::class, "products_categories", "category_id", "product_id")->withTimestamps();
+      return $this->belongsToMany(ProductEloquent::class, "categories_products", "category_id", "product_id")->withTimestamps();
     }
 }
