@@ -46,7 +46,7 @@ final class EloquentProductRepository implements ProductRepository
         
         if (!$product->photos()->isEmpty()) {
             $photos = $this->photoRepository->saveAll($product->photos());
-            $productEloquentSaved->photos()->attach($product->photos()->ids());
+            $productEloquentSaved->photos()->sync($photos->ids());
         }
 
         return ProductDataTransformer::fromModel($productEloquentSaved);
