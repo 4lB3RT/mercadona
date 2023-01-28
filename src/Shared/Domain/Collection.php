@@ -8,7 +8,6 @@ use ArrayIterator;
 use Countable;
 use IteratorAggregate;
 use Mercadona\Domain\Category\IntegerId;
-use Ramsey\Uuid\Type\Integer;
 
 abstract class Collection implements Countable, IteratorAggregate
 {
@@ -18,6 +17,11 @@ abstract class Collection implements Countable, IteratorAggregate
     }
 
     abstract protected function type(): string;
+
+    public function add($item): void
+    {
+        $this->items[] = $item;
+    }
 
     public function getIterator(): ArrayIterator
     {
