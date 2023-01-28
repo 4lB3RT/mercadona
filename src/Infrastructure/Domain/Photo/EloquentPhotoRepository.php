@@ -11,7 +11,7 @@ final class EloquentPhotoRepository implements PhotoRepository
 {
     public function find(PhotoId $photoId): Photo
     {
-        return PhotoEloquent::fromModel(PhotoEloquent::findOrFail($photoId->value));
+        return PhotoEloquent::fromModel(PhotoEloquent::findOrFail($photoId->value()));
     }
 
     public function save(Photo $photo): Photo
@@ -19,7 +19,7 @@ final class EloquentPhotoRepository implements PhotoRepository
         $photoEloquent = new PhotoEloquent();
         $photoArray = PhotoDataTransformer::fromEntity($photo);
         $photoEloquentSaved = $photoEloquent->updateOrCreate(
-            ['id' => $photo->id?->value],
+            ['id' => $photo->id()?->value()],
             $photoArray
         );
 

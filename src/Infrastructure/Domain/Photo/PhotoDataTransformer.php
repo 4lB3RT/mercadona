@@ -34,11 +34,11 @@ final class PhotoDataTransformer
     public static function fromEntity(Photo $photo): array
     {
        return [
-            "id" => $photo->id?->value,
-            "zoom" => $photo->zoom,
-            "regular" => $photo->regular,
-            "thumbnail" => $photo->thumbnail,
-            "perspective" => $photo->perspective,
+            "id" => $photo->id()?->value(),
+            "zoom" => $photo->zoom(),
+            "regular" => $photo->regular(),
+            "thumbnail" => $photo->thumbnail(),
+            "perspective" => $photo->perspective(),
         ];
     }
 
