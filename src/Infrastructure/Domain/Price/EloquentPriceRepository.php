@@ -16,8 +16,7 @@ final class EloquentPriceRepository implements PriceRepository
 
     public function save(Price $price): Price
     {
-        $priceEloquent = new PriceEloquent();
-        $priceEloquentSaved = $priceEloquent->updateOrCreate(
+        $priceEloquentSaved = PriceEloquent::updateOrCreate(
             ['id' => $price->id()?->value()],
             PriceDataTransformer::fromEntity($price)
         );
