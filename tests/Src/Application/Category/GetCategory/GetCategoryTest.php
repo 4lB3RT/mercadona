@@ -6,6 +6,9 @@ use Mercadona\Application\Category\GetCategory\GetCategory;
 use Mercadona\Domain\Category\CategoryRepository;
 use Mercadona\Domain\Product\ProductRepository;
 use Mercadona\Domain\Category\Service\FindAndSaveCategory;
+use Tests\Mercadona\Application\Category\GetCategory\GetCategory\GetCategoryRequestExample;
+use Tests\Mercadona\Domain\Category\CategoryExample;
+use Tests\Mercadona\Domain\Category\CategoryIdExample;
 use Tests\Mercadona\Infrastructure\Domain\Category\InMemoryCategoryRepository;
 use Tests\Mercadona\Infrastructure\Domain\Product\InMemoryProductRepository;
 use Tests\TestCase;
@@ -30,6 +33,21 @@ final class GetCategoryTest extends TestCase {
             $this->productRepository,
             $this->findAndSaveCategory
         );
+    }
+
+    public function testGetCategory(): void
+    {
+        $categoryId = CategoryIdExample::random();
+        $category = CategoryExample::create(
+            id: $categoryId
+        );
+        $this->categoryRepository->save($category);
+
+        $request = GetCategoryRequestExample::create(
+            categoryId: $categoryId->value()
+        );
+
+        $this->sut->execute($request);
     }
 
 }

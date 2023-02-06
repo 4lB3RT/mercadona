@@ -12,6 +12,29 @@ use Tests\Mercadona\Shared\Domain\IntegerExample;
 
 final class CategoryExample {
 
+    public static function create(
+        ?CategoryId $id =  null,
+        ?CategoryName $name = null,
+        ?CategoryStatus $status = null,
+        ?CategoryCollectionExample $categoriesExample = null,
+        ?ProductCollectionExample $productsExample = null,
+        ?CategoryId $parentId = null,
+        ?bool $published = null,
+        ?int $order = null,
+    ): Category
+    {
+        return new Category(
+            id: $id ?? CategoryIdExample::random(),
+            name: $name ?? CategoryNameExample::random(),
+            status: $status ?? CategoryStatus::READY,  
+            categories: $categoriesExample ?? CategoryCollectionExample::empty(),
+            products: $productsExample ?? ProductCollectionExample::empty(),
+            parentId: $parentId ?? CategoryIdExample::random(),
+            published: $published ?? BoolExample::random(),
+            order: $order ?? IntegerExample::random()  
+        );
+    }
+
     public static function dummy(): Category
     {
         return new Category(
