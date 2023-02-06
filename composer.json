@@ -1,9 +1,17 @@
 {
     "name": "mercadona/php",
-    "type": "poject",
-    "description": "mercadona api",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Albert García Cortés",
+            "email": "albertgarcia.agc@gmail.com",
+            "homepage": "https://www.youtube.com/channel/UCXModX2oqGBqVjf4M6cFmrw",
+            "role": "Developer"
+        },
+    ],
+    "description": "Mercadona api",
     "keywords": ["framework", "laravel"],
-    "license": "MIT",
+    "license": "Albert García",
     "require": {
         "php": "^8.0.2",
         "doctrine/dbal": "^3.5",
