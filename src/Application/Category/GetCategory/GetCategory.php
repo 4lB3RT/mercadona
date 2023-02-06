@@ -19,7 +19,7 @@ final class GetCategory
     /** @var GetCategoryRequest $request */
     public function execute(Request $request): GetCategoryResponse
     {
-        $categoryId = new CategoryId($request->categoryId);
+        $categoryId = new CategoryId($request->categoryId());
         $categoryWithOutProcess = $this->categoryRepository->find($categoryId);
         
         $parent = null;

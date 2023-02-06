@@ -7,7 +7,12 @@ use Mercadona\Shared\Application\Request;
 final class GetCategoryRequest implements Request
 {
     public function __construct(
-        public readonly int $categoryId
+        private readonly int $categoryId
     ) {
+    }
+
+    public function categoryId(): int
+    {
+        return $this->categoryId;
     }
 }
