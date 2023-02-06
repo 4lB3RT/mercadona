@@ -14,8 +14,8 @@ use Throwable;
 class GetProductController extends Controller
 { 
     public function __invoke(
-        GetProduct $getProduct,
         int $productId,
+        GetProduct $getProduct,
         GetProductPresenter $getProductPresenter
     ): JsonResponse {
         try {
