@@ -8,10 +8,13 @@ use Mercadona\Domain\Category\Category;
 use Mercadona\Domain\Category\CategoryCollection;
 use Mercadona\Domain\Category\CategoryReadRepository;
 use Mercadona\Domain\Category\CategoryStatus;
+use Mercadona\Domain\Product\ProductRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ApiCategoryRepository implements CategoryReadRepository
 {
+  public function __construct(private readonly ProductRepository $productRepository) {}
+
     public function findParentCategories(): CategoryCollection
     {        
         $curl = curl_init();
@@ -44,7 +47,6 @@ final class ApiCategoryRepository implements CategoryReadRepository
         $client = new Client([ 'base_uri' => 'https://tienda.mercadona.es/api/']);
         $response = $client->request('GET', 'categories/'.$category->id()->value());
         
-        
         $response = (array) json_decode($response->getBody()->getContents(), true);
 
         $categoryArray = CategoryDataTransformer::fromEntity($category);
@@ -71,7 +73,8 @@ final class ApiCategoryRepository implements CategoryReadRepository
         }
 
         if ($code === Response::HTTP_TOO_MANY_REQUESTS) {
-          $category->modifyStatus(CategoryStatus::FAIL);        }
+          $category->modifyStatus(CategoryStatus::FAIL);        
+        }
       }
 
       return $category;
