@@ -29,5 +29,5 @@ Route::group(['prefix'=>'categories'], function(){
 
 Route::group(['prefix'=>'products'], function(){
     Route::get('/', GetProductsController::class)->name("categories");
-    Route::get('/{categoryId}', GetProductController::class)->name("category");
+    Route::get('/{productId}', GetProductController::class)->name("category");
 });
