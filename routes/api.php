@@ -2,10 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use Mercadona\Infrastructure\Controllers\Category\GetCategoriesController;
-use Mercadona\Infrastructure\Controllers\Category\GetCategoryController;
-use Mercadona\Infrastructure\Controllers\Product\GetProductController;
-use Mercadona\Infrastructure\Controllers\Product\GetProductsController;
+use Mercadona\Product\Infrastructure\Controllers\GetProductController;
+use Mercadona\Product\Infrastructure\Controllers\GetProductsController;
+use Mercadona\Category\Infrastructure\Controllers\GetCategoryController;
+use Mercadona\Category\Infrastructure\Controllers\GetCategoriesController;
 
 /*
 |--------------------------------------------------------------------------

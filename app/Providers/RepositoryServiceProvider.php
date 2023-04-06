@@ -3,18 +3,18 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Mercadona\Domain\Category\CategoryReadRepository;
-use Mercadona\Domain\Category\CategoryRepository;
-use Mercadona\Domain\Photo\PhotoRepository;
-use Mercadona\Domain\Price\PriceRepository;
-use Mercadona\Domain\Product\ProductReadRepository;
-use Mercadona\Domain\Product\ProductRepository;
-use Mercadona\Infrastructure\Domain\Category\ApiCategoryRepository;
-use Mercadona\Infrastructure\Domain\Product\ApiProductRepository;
-use Mercadona\Infrastructure\Domain\Category\EloquentCategoryRepository;
-use Mercadona\Infrastructure\Domain\Photo\EloquentPhotoRepository;
-use Mercadona\Infrastructure\Domain\Price\EloquentPriceRepository;
-use Mercadona\Infrastructure\Domain\Product\EloquentProductRepository;
+use Mercadona\Photo\Domain\PhotoRepository;
+use Mercadona\Price\Domain\PriceRepository;
+use Mercadona\Product\Domain\ProductRepository;
+use Mercadona\Category\Domain\CategoryRepository;
+use Mercadona\Product\Domain\ProductReadRepository;
+use Mercadona\Category\Domain\CategoryReadRepository;
+use Mercadona\Product\Infrastructure\Repositories\Api\ApiProductRepository;
+use Mercadona\Category\Infrastructure\Repositories\Api\ApiCategoryRepository;
+use Mercadona\Photo\Infrastructure\Repositories\Eloquent\EloquentPhotoRepository;
+use Mercadona\Price\Infrastructure\Repositories\Eloquent\EloquentPriceRepository;
+use Mercadona\Product\Infrastructure\Repositories\Eloquent\EloquentProductRepository;
+use Mercadona\Category\Infrastructure\Repositories\Eloquent\EloquentCategoryRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {

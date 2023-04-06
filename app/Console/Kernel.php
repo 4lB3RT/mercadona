@@ -13,7 +13,6 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \Mercadona\Infrastructure\Commands\Category\SaveCategoriesFromApiArtisanCommand::class,
     ];
     /**
      * Define the application's command schedule.

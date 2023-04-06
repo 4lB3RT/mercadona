@@ -7,7 +7,7 @@
             "email": "albertgarcia.agc@gmail.com",
             "homepage": "https://www.youtube.com/channel/UCXModX2oqGBqVjf4M6cFmrw",
             "role": "Developer"
-        },
+        }
     ],
     "description": "Mercadona api",
     "keywords": ["framework", "laravel"],
