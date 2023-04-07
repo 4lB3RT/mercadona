@@ -9,7 +9,7 @@ use Mercadona\Category\Domain\CategoryId;
 use Mercadona\Category\Domain\CategoryCollection;
 use Mercadona\Category\Domain\CategoryRepository;
 use Mercadona\Category\Infrastructure\Models\CategoryEloquent;
-use Mercadona\Category\Infrastructure\Repositories\Transformers\CategoryDataTransformer;
+use Mercadona\Category\Infrastructure\Transformers\CategoryDataTransformer;
 use Mercadona\Product\Domain\ProductRepository;
 
 final class EloquentCategoryRepository implements CategoryRepository

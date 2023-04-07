@@ -5,8 +5,8 @@ namespace Mercadona\Product\Infrastructure\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Log;
-use Mercadona\Application\Product\GetProducts\GetProducts;
-use Mercadona\Infrastructure\Presenters\Product\GetProductsPresenter;
+use Mercadona\Product\Application\GetProducts\GetProducts;
+use Mercadona\Product\Infrastructure\Presenters\GetProductsPresenter;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 

@@ -2,12 +2,12 @@
 
 namespace Mercadona\Category\Infrastructure\Presenters;
 
-use Mercadona\Application\Category\GetCategory\GetCategoryResponse;
+use Mercadona\Category\Application\GetCategory\GetCategoryResponse;
 use Mercadona\Domain\Category\Category;
-use Mercadona\Infrastructure\Domain\Category\CategoryDataTransformer;
-use Mercadona\Infrastructure\Domain\Product\ProductDataTransformer;
 use Mercadona\Shared\Application\Response;
 use Mercadona\Shared\Infrastructure\Presenters\JsonPresenter;
+use Mercadona\Product\Infrastructure\Transformers\ProductDataTransformer;
+use Mercadona\Category\Infrastructure\Transformers\CategoryDataTransformer;
 
 final class GetCategoryPresenter implements JsonPresenter
 { 
