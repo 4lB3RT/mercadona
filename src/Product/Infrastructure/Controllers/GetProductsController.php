@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Log;
 use Mercadona\Product\Application\GetProducts\GetProducts;
 use Mercadona\Product\Infrastructure\Presenters\GetProductsPresenter;
 use Symfony\Component\HttpFoundation\Response;
-use Throwable;
 
 class GetProductsController extends Controller
 { 

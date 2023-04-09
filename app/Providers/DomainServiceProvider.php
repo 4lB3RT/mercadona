@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Mercadona\Domain\Category\Service\FindAndSaveCategory;
-use Mercadona\Domain\Category\Service\FindAndSaveCategoryService;
+use Mercadona\Category\Domain\Service\FindAndSaveCategory;
+use Mercadona\Category\Domain\Service\FindAndSaveCategoryService;
 
 class DomainServiceProvider extends ServiceProvider
 {

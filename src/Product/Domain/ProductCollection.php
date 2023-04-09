@@ -2,7 +2,7 @@
 
 namespace Mercadona\Product\Domain;
 
-use Mercadona\Domain\Product\Product;
+use Mercadona\Product\Domain\Product;
 use Mercadona\Shared\Domain\Collection;
 
 final class ProductCollection extends Collection

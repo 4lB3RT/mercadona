@@ -27,7 +27,7 @@ class GetCategoryController extends Controller
                 json: true
             );
         } catch (\Throwable $exception) {
-            Log::info($exception->getMessage()); 
+            \Log::info($exception->getMessage()); 
 
             return new JsonResponse(data:
             [
