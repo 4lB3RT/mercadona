@@ -4,7 +4,7 @@ namespace Mercadona\Price\Domain;
 
 final class Price {
     public function __construct(
-        private readonly ?PriceId $id,
+        private ?PriceId $id,
         private readonly Iva $iva,
         private readonly bool $isNew,
         private readonly bool $isPack,
@@ -31,6 +31,11 @@ final class Price {
     public function id(): ?PriceId
     {
     	return $this->id;
+    }
+
+    function modifyId(PriceId $id) : void
+    {
+        $this->id = $id;
     }
     
     public function iva(): Iva

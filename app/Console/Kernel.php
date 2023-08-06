@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Mercadona\Category\Infrastructure\Commands\SaveCategoriesFromApiArtisanCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -13,6 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+        SaveCategoriesFromApiArtisanCommand::class
     ];
     /**
      * Define the application's command schedule.
@@ -32,7 +34,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/../../src/Infrastructure/Commands');
+        $this->load(__DIR__.'/../../src/Category/Infrastructure/Commands');
 
         require base_path('routes/console.php');
     }

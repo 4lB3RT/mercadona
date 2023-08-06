@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace Mercadona\Product\Infrastructure\Commands;
+namespace Mercadona\Category\Infrastructure\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Mercadona\Category\Application\SaveCategoriesFromApi\SaveCategoriesFromApi;
 use Throwable;
 
-class SaveProductsFromApiArtisanCommand extends Command
+class SaveCategoriesFromApiArtisanCommand extends Command
 {
-    protected $name = "save-products";
-    protected $signature = 'save-products';
+    protected $name = "save-categories";
+    protected $signature = 'save-categories';
     protected $description = '';
 
     public function __construct(
@@ -25,6 +25,7 @@ class SaveProductsFromApiArtisanCommand extends Command
         try {
             $this->getCategoriesFromApi->execute();
         }catch(Throwable $e) {
+            dd($e->getMessage());
             Log::info($e->getMessage());
         }
     }

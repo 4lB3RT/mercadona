@@ -4,7 +4,7 @@ namespace Mercadona\Product\Infrastructure\Repositories\Api;
 
 use GuzzleHttp\Client;
 use Mercadona\Product\Domain\Product;
-use Mercadona\Product\Domain\ProductId;
+use Mercadona\Product\Domain\ValueObject\ProductId;
 use Mercadona\Product\Domain\ProductReadRepository;
 use Mercadona\Product\Infrastructure\Transformers\ProductDataTransformer;
 

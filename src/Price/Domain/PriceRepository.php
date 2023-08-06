@@ -6,7 +6,7 @@ interface PriceRepository
 {
     public function find(PriceId $priceId): Price;
 
-    public function save(Price $price): Price;
+    public function save(Price $price): void;
 
-    public function saveAll(PriceCollection $prices): PriceCollection;
+    public function saveAll(PriceCollection $prices): void;
 }

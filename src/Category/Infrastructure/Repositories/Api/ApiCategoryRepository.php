@@ -14,7 +14,7 @@ use Mercadona\Product\Domain\ProductRepository;
 
 final class ApiCategoryRepository implements CategoryReadRepository
 {
-  public function __construct(private readonly ProductRepository $productRepository) {}
+    public function __construct(private readonly ProductRepository $productRepository) {}
 
     public function findParentCategories(): CategoryCollection
     {        
@@ -43,7 +43,6 @@ final class ApiCategoryRepository implements CategoryReadRepository
 
     public function findDetailCategory(Category $category, ?Category $parent = null): Category
     {
-      
       try{
         $client = new Client([ 'base_uri' => 'https://tienda.mercadona.es/api/']);
         $response = $client->request('GET', 'categories/'.$category->id()->value());
@@ -58,11 +57,10 @@ final class ApiCategoryRepository implements CategoryReadRepository
         );
             
         $category->modifyCategories($categories);    
-        
         $category->modifyStatus(CategoryStatus::PROCESSED);
       } catch(GuzzleException $exception) {
         $code = $exception->getCode();
-
+        
         if ($code === Response::HTTP_GONE) {
           $categories = array_filter(
             $parent->categories()->items(),

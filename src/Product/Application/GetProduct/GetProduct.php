@@ -2,7 +2,7 @@
 
 namespace Mercadona\Product\Application\GetProduct;
 
-use Mercadona\Product\Domain\ProductId;
+use Mercadona\Product\Domain\ValueObject\ProductId;
 use Mercadona\Shared\Application\Request;
 use Mercadona\Product\Application\GetProduct\GetProductResponse;
 use Mercadona\Product\Domain\ProductReadRepository;

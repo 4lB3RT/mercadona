@@ -2,20 +2,25 @@
 
 namespace Mercadona\Category\Application\SaveCategoriesFromApi;
 
+use Mercadona\Category\Domain\Category;
 use Mercadona\Category\Domain\CategoryReadRepository;
 use Mercadona\Category\Domain\CategoryRepository;
+use Mercadona\Category\Domain\Service\FindAndSaveCategory;
 
 final class SaveCategoriesFromApi
 {
     public function __construct(
         private readonly CategoryRepository $categoryRepository,
         private readonly CategoryReadRepository $categoryReadRepository,
+        private readonly FindAndSaveCategory $findAndSaveCategory,
     ) {}
 
     public function execute(): void
     {
         $categories = $this->categoryReadRepository->findParentCategories();
-        $this->categoryRepository->saveAll($categories);
-
+        
+        foreach ($categories as $category) {
+            $this->findAndSaveCategory->findAndSave($category);
+        } 
     }
 }

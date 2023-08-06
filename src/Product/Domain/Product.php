@@ -2,29 +2,41 @@
 
 namespace Mercadona\Product\Domain;
 
+use Mercadona\Category\Domain\CategoryId;
 use Mercadona\Shared\Domain\Entity;
 use Mercadona\Photo\Domain\PhotoCollection;
 use Mercadona\Price\Domain\PriceCollection;
-use Mercadona\Category\Domain\CategoryIdCollection;
+use Mercadona\Product\Domain\ValueObject\ProductBrand;
+use Mercadona\Product\Domain\ValueObject\ProductEan;
+use Mercadona\Product\Domain\ValueObject\ProductId;
+use Mercadona\Product\Domain\ValueObject\ProductLimit;
+use Mercadona\Product\Domain\ValueObject\ProductName;
+use Mercadona\Product\Domain\ValueObject\ProductOrigin;
+use Mercadona\Product\Domain\ValueObject\ProductPackaging;
+use Mercadona\Product\Domain\ValueObject\ProductPublished;
+use Mercadona\Product\Domain\ValueObject\ProductShareUrl;
+use Mercadona\Product\Domain\ValueObject\ProductSlug;
+use Mercadona\Product\Domain\ValueObject\ProductThumbnail;
+use Mercadona\Product\Domain\ValueObject\ProductWeight;
 
 final class Product extends Entity
 {
     public function __construct(
-        private readonly ProductId $id,
+        private ProductId $id,
         private readonly ProductName $name,
-        private readonly ?int $ean,
-        private readonly ?string $slug,
-        private readonly ?string $brand,
-        private readonly int $limit,
-        private readonly ?string $origin,
-        private readonly ?string $packaging,
-        private readonly ?bool $published,
-        private readonly ?string $shareUrl,
-        private readonly string $thumbnail,
-        private readonly ?string $isVariableWeight,
-        private CategoryIdCollection $categoryIds,
-        private ?PriceCollection $prices,
+        private CategoryId $categoryId,
         private PhotoCollection $photos,
+        private readonly ProductEan $ean,
+        private readonly ProductSlug $slug,
+        private readonly ProductBrand $brand,
+        private readonly ProductLimit $limit,
+        private readonly ProductOrigin $origin,
+        private readonly ProductPackaging $packaging,
+        private readonly ProductPublished $published,
+        private readonly ProductShareUrl $shareUrl,
+        private readonly ProductThumbnail $thumbnail,
+        private readonly ProductWeight $isVariableWeight,
+        private PriceCollection $prices,
     ) {
     }
 
@@ -33,72 +45,77 @@ final class Product extends Entity
         return $this->id;
     }
 
+    public function modifyId(ProductId $id): void 
+    {
+        $this->id = $id;
+    }
+
     public function name(): ProductName
     {
         return $this->name;
     }
 
-    public function ean(): ?int
+    public function ean(): ProductEan
     {
         return $this->ean;
     }   
 
-    public function slug(): ?string
+    public function slug(): ProductSlug
     {
         return $this->slug;
     }
 
-    public function brand(): ?string
+    public function brand(): ProductBrand
     {
         return $this->brand;
     }
 
-    public function limit(): int
+    public function limit(): ProductLimit
     {
         return $this->limit;
     }
 
-    public function origin(): ?string
+    public function origin(): ProductOrigin
     {
         return $this->origin;
     }
 
-    public function packaging(): ?string
+    public function packaging(): ProductPackaging
     {
         return $this->packaging;
     }
 
-    public function published(): ?bool
+    public function published(): ProductPublished
     {
         return $this->published;
     }
 
-    public function shareUrl(): ?string
+    public function shareUrl(): ProductShareUrl
     {
         return $this->shareUrl;
     } 
 
-    public function thumbnail(): string
+    public function thumbnail(): ProductThumbnail
     {
         return $this->thumbnail;
     }
 
-    public function isVariableWeight(): ? string
+    public function isVariableWeight(): ProductWeight
     {
         return $this->isVariableWeight;
     }
 
-    public function categoryIds(): CategoryIdCollection
+    public function categoryId(): CategoryId
     {
-        return $this->categoryIds;
+        return $this->categoryId;
     }
 
-    public function modifyCategoryIds(CategoryIdCollection $categoryIds): void
+    public function modifyCategoryId(CategoryId $categoryId): void
     {
-        $this->categoryIds = $categoryIds;
+        $this->categoryId = $categoryId;
     }
 
-    public function prices(): ?PriceCollection
+    public function prices(): PriceCollection
     {
         return $this->prices;
     }
@@ -108,12 +125,7 @@ final class Product extends Entity
         $this->prices = $prices;
     }
 
-    public function hasPrices(): bool
-    {
-        return !$this->prices()->isEmpty() ? true : false;
-    }
-
-    public function photos(): ?PhotoCollection
+    public function photos(): PhotoCollection
     {
         return $this->photos;
     }

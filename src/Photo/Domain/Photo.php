@@ -7,7 +7,7 @@ use Mercadona\Shared\Domain\Entity;
 final class Photo extends Entity
 {
     public function __construct(
-        private readonly ?PhotoId $id,
+        private ?PhotoId $id,
         private readonly string $zoom,
         private readonly string $regular,
         private readonly string $thumbnail,
@@ -18,6 +18,11 @@ final class Photo extends Entity
     public function id(): ?PhotoId 
     {
     	return $this->id;
+    }
+
+    function modifyId(PhotoId $id) : void
+    {
+        $this->id = $id;    
     }
     
     public function zoom(): string 

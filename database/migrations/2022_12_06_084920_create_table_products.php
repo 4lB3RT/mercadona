@@ -9,9 +9,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->unsignedInteger('id')->primary()->unsigned();
-            $table->unsignedInteger('price_id')->nullable();
-            $table->unsignedInteger('product_detail_id')->nullable();
+            $table->bigInteger('id')->primary()->unsigned();
+            $table->bigInteger('category_id');
+            $table->bigInteger('price_id');
+            $table->bigInteger('product_detail_id')->nullable();
             $table->string('name');
             $table->integer('ean')->nullable();
             $table->string("slug")->nullable();

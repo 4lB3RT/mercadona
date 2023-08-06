@@ -10,10 +10,13 @@ return new class extends Migration
     {
         Schema::create('products_prices', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('product_id');
-            $table->unsignedInteger('price_id');
+            $table->bigInteger('product_id');
+            $table->bigInteger('price_id');
             $table->timestamps();
+
+            $table->index(['product_id', 'price_id']);
         });
+
     }
 
     public function down(): void

@@ -27,7 +27,7 @@ final class EloquentCategoryRepository implements CategoryRepository
     {
         $categoryEloquent = new CategoryEloquent();
 
-        $categoryCollectionEloquent = $categoryEloquent->with("categories", "products")->get();
+        $categoryCollectionEloquent = $categoryEloquent->with("allChildrenCategories", "products")->get();
         
         return CategoryDataTransformer::fromCollection($categoryCollectionEloquent);
     }
@@ -38,19 +38,17 @@ final class EloquentCategoryRepository implements CategoryRepository
             DB::beginTransaction();
             
             $categoryArray = CategoryDataTransformer::fromEntity($category);
-            $dao = CategoryEloquent::updateOrCreate(
+            $categoryDao = CategoryEloquent::updateOrCreate(
                 ['id' => $category->id()->value()],
                 $categoryArray
             );
+            
+            $category->modifyId(new CategoryId($categoryDao->id));
     
-            if (!$category->products()->isEmpty()) {
+            if (!$category->products()->isEmpty() && $category->isParent() === false) {
                 foreach ($category->products() as $product) {
                     $this->productRepository->save($product);
                 }
-    
-                $dao->products()->sync(
-                    $category->products()->ids()
-                );
             }    
 
             DB::commit();

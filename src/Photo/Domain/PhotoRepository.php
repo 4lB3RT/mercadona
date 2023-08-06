@@ -6,7 +6,7 @@ interface PhotoRepository
 {
     public function find(PhotoId $photoId): Photo;
 
-    public function save(Photo $photo): Photo;
+    public function save(Photo $photo): void;
 
-    public function saveAll(PhotoCollection $photos): PhotoCollection;
+    public function saveAll(PhotoCollection $photos): void;
 }

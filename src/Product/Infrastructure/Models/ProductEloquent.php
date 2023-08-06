@@ -4,21 +4,14 @@ namespace Mercadona\Product\Infrastructure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Mercadona\Infrastructure\Domain\Category\CategoryEloquent;
-use Mercadona\Infrastructure\Domain\Photo\PhotoEloquent;
-use Mercadona\Infrastructure\Domain\Price\PriceEloquent;
+use Mercadona\Photo\Infrastructure\Models\PhotoEloquent;
+use Mercadona\Price\Infrastructure\Models\PriceEloquent;
 
 final class ProductEloquent extends Model
 {
     protected $table = "products";
     protected $primaryKey = "id";
-    protected $guarded = ['id'];  
-    protected $fillable = ["id", "product_detail_id", "name", "ean", "slug", "brand", "limit", "origin", "packaging", "published", "share_url", "thumbnail", "is_variable_weight"];
-
-    public function categories(): BelongsToMany
-    {
-        return $this->belongsToMany(CategoryEloquent::class, "categories_products", "product_id", "category_id")->withTimestamps();
-    }
+    protected $fillable = ["id", "category_id", "product_detail_id", "name", "ean", "slug", "brand", "limit", "origin", "packaging", "published", "share_url", "thumbnail", "is_variable_weight"];
 
     public function prices(): BelongsToMany
     {
