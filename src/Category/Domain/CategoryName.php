@@ -2,6 +2,6 @@
 
 namespace Mercadona\Category\Domain;
 
-use Mercadona\Shared\Domain\StringValue;
+use Mercadona\Shared\Domain\ValueObject\StringValue;
 
 final class CategoryName extends StringValue {}

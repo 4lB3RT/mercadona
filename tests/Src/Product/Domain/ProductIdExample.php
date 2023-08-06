@@ -2,7 +2,7 @@
 
 namespace Tests\Mercadona\Product\Domain;
 
-use Mercadona\Product\Domain\ProductId;
+use Mercadona\Product\Domain\ValueObject\ProductId;
 use Tests\Mercadona\Shared\Domain\IntegerExample;
 
 final class ProductIdExample {

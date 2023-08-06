@@ -2,14 +2,16 @@
 
 namespace Mercadona\Product\Infrastructure\Repositories\Eloquent;
 
+use Illuminate\Support\Facades\DB;
 use Mercadona\Photo\Domain\PhotoRepository;
 use Mercadona\Price\Domain\PriceRepository;
 use Mercadona\Product\Domain\Product;
 use Mercadona\Product\Domain\ProductCollection;
-use Mercadona\Product\Domain\ProductId;
+use Mercadona\Product\Domain\ValueObject\ProductId;
 use Mercadona\Product\Domain\ProductRepository;
 use Mercadona\Product\Infrastructure\Models\ProductEloquent;
 use Mercadona\Product\Infrastructure\Transformers\ProductDataTransformer;
+use Throwable;
 
 final class EloquentProductRepository implements ProductRepository
 {
@@ -20,7 +22,7 @@ final class EloquentProductRepository implements ProductRepository
 
     public function find(ProductId $productId): Product
     {
-        return ProductDataTransformer::fromModel(ProductEloquent::with("categories", "prices", "photos")->findOrFail($productId->value));
+        return ProductDataTransformer::fromModel(ProductEloquent::with("categories", "prices", "photos")->findOrFail($productId->value()));
     }
 
     public function findAll(): ProductCollection
@@ -32,24 +34,35 @@ final class EloquentProductRepository implements ProductRepository
         return ProductDataTransformer::fromCollection($productCollectionEloquent);
     }
 
-    public function save(Product $product): Product
+    public function save(Product $product): void
     {
-        $productArray = ProductDataTransformer::fromEntity($product);
-        $productEloquentSaved = ProductEloquent::updateOrCreate(
-            ['id' => $product->id()->value()],
-            $productArray
-        );
+        try{
+            DB::beginTransaction();
+            
+            $productArray = ProductDataTransformer::fromEntity($product);
+            $productDao = ProductEloquent::updateOrCreate(
+                ['id' => $product->id()->value()],
+                $productArray
+            );
 
-        if (!$product->prices()->isEmpty()) {
-            $prices = $this->priceRepository->saveAll($product->prices());
-            $productEloquentSaved->prices()->attach($prices->ids());
+            $product->modifyId(new ProductId($productDao->id));
+            
+            if (!$product->prices()->isEmpty()) {
+                $prices = $product->prices();
+                $this->priceRepository->saveAll($prices);
+                $productDao->prices()->attach($prices->ids());
+            }
+            
+            if (!$product->photos()->isEmpty()) {
+                $photos = $product->photos();
+                $this->photoRepository->saveAll($photos);
+                $productDao->photos()->sync($photos->ids());
+            }
+            
+            DB::commit();
+        }catch (Throwable $e) {
+            dd($e->getMessage());
+            DB::rollBack();
         }
-        
-        if (!$product->photos()->isEmpty()) {
-            $photos = $this->photoRepository->saveAll($product->photos());
-            $productEloquentSaved->photos()->sync($photos->ids());
-        }
-
-        return ProductDataTransformer::fromModel($productEloquentSaved);
     }
 }

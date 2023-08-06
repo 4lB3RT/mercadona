@@ -4,8 +4,8 @@ namespace Tests\Mercadona\Product\Domain;
 
 use Tests\TestCase;
 use Mercadona\Product\Domain\Product;
-use Mercadona\Product\Domain\ProductId;
-use Mercadona\Product\Domain\ProductName;
+use Mercadona\Product\Domain\ValueObject\ProductId;
+use Mercadona\Product\Domain\ValueObject\ProductName;
 use Mercadona\Photo\Domain\PhotoCollection;
 use Mercadona\Price\Domain\PriceCollection;
 use Tests\Mercadona\Domain\Photo\PhotoExample;

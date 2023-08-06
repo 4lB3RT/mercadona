@@ -2,6 +2,6 @@
 
 namespace Mercadona\Price\Domain;
 
-use Mercadona\Shared\Domain\IntegerId;
+use Mercadona\Shared\Domain\ValueObject\IntegerId;
 
 final class PriceId extends IntegerId {}

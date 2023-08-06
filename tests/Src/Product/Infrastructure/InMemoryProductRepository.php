@@ -3,7 +3,7 @@
 namespace Tests\Mercadona\Product\Infrastructure;
 
 use Mercadona\Product\Domain\Product;
-use Mercadona\Product\Domain\ProductId;
+use Mercadona\Product\Domain\ValueObject\ProductId;
 use Mercadona\Product\Domain\ProductCollection;
 use Mercadona\Product\Domain\ProductNotFoundException;
 use Mercadona\Product\Domain\ProductRepository;

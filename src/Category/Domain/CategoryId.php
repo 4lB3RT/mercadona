@@ -2,6 +2,6 @@
 
 namespace Mercadona\Category\Domain;
 
-use Mercadona\Shared\Domain\IntegerId;
+use Mercadona\Shared\Domain\ValueObject\IntegerId;
 
 final class CategoryId extends IntegerId {}

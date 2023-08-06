@@ -2,32 +2,30 @@
 
 namespace Mercadona\Category\Infrastructure\Presenters;
 
+use Mercadona\Category\Application\GetCategories\GetCategoriesResponse;
 use Mercadona\Category\Domain\Category;
+use Mercadona\Category\Domain\CategoryCollection;
 use Mercadona\Shared\Application\Response;
-use Mercadona\Product\Infrastructure\Transformers\ProductDataTransformer;
-use Mercadona\Category\Infrastructure\Transformers\CategoryDataTransformer;
 use Mercadona\Shared\Infrastructure\Presenters\JsonPresenter;
 
 final class GetCategoriesPresenter implements JsonPresenter
 { 
+    /** @param GetCategoriesResponse $response */
     public function toJson(Response $response): string
     {
         $categories = $response->categories();
 
         $categoriesArray = [];
 
-        
-        /** @var Category $category */
-        foreach ($categories->items () as $category) {
-            $products = ProductDataTransformer::fromEntities($category->products());
-            
+         /** @var Category $category */
+        foreach ($categories->items () as $category) {            
             $categoriesArray[] = [
                 "id" => $category->id()->value(),
+                "category_id" => $category->parentId()?->value(),
                 "name" => $category->name()->value(),
-                "status" => $category->status(),
-                "categories" => CategoryDataTransformer::fromEntities($category->categories()),
-                "products" => $products,
-                "parentId" => $category->parentId()?->value(),
+                "categories" => $this->childrenCategories($category->categories()),
+                "status" => $category->status()->name,
+                "is_parent" => $category->isParent(),
                 "order" => $category->order(),
                 "published" => $category->published(),
             ];
@@ -39,4 +37,26 @@ final class GetCategoriesPresenter implements JsonPresenter
             ]
         ]);
     }
+
+    public function childrenCategories(CategoryCollection $categories): array 
+    {
+        $categoriesArray = [];
+
+        /** @var Category $category */
+        foreach ($categories as $category) {            
+            $categoriesArray[] =  [
+                "id" => $category->id()->value(),
+                "category_id" => $category->parentId()?->value(),
+                "name" => $category->name()->value(),
+                "categories" => $this->childrenCategories($category->categories()),
+                "status" => $category->status()->name,
+                "is_parent" => $category->isParent(),
+                "order" => $category->order(),
+                "published" => $category->published(),
+            ];
+        }
+
+        return $categoriesArray;
+    }
+        
 }

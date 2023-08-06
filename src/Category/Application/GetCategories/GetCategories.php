@@ -14,9 +14,6 @@ final class GetCategories
 
     public function execute(): GetCategoriesResponse
     {
-        $categories = $this->categoryReadRepository->findParentCategories();
-        $this->categoryRepository->saveAll($categories);
-
         $categories = $this->categoryRepository->findAll();
 
         return new GetCategoriesResponse($categories);

@@ -2,7 +2,7 @@
 
 namespace Tests\Mercadona\Product\Domain;
 
-use Mercadona\Product\Domain\ProductName;
+use Mercadona\Product\Domain\ValueObject\ProductName;
 use Tests\Mercadona\Shared\Domain\StringExample;
 
 final class ProductNameExample {

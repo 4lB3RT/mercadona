@@ -2,6 +2,6 @@
 
 namespace Mercadona\Photo\Domain;
 
-use Mercadona\Shared\Domain\IntegerId;
+use Mercadona\Shared\Domain\ValueObject\IntegerId;
 
 final class PhotoId extends IntegerId {}

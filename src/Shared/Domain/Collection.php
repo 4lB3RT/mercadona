@@ -7,7 +7,7 @@ namespace Mercadona\Shared\Domain;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
-use Mercadona\Domain\Category\IntegerId;
+use Mercadona\Shared\Domain\ValueObject\IntegerId;
 
 abstract class Collection implements Countable, IteratorAggregate
 {
@@ -46,6 +46,11 @@ abstract class Collection implements Countable, IteratorAggregate
     public function isEmpty(): bool
     {
         return empty($this->items) ? true : false;
+    }
+
+    public function isNotEmpty(): bool
+    {
+        return !empty($this->items) ? true : false;
     }
 
     public function ids(): array

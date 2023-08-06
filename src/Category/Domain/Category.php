@@ -10,19 +10,24 @@ use Mercadona\Category\Domain\CategoryCollection;
 final class Category extends Entity
 {
     public function __construct(
-        private readonly CategoryId $id,
+        private CategoryId $id,
         private readonly CategoryName $name,
         private CategoryStatus $status,
         private CategoryCollection $categories,
-        private ?ProductCollection $products,
+        private ProductCollection $products,
         private readonly ?CategoryId $parentId,
-        private readonly ?int $order,
-        private readonly ?bool $published = false,
+        private readonly ?CategoryOrder $order,
+        private readonly ?CategoryPublished $published,
     ) {}
 
     public function id(): CategoryId
     {
         return $this->id;
+    }
+
+    public function modifyId(CategoryId $id): void 
+    {
+        $this->id = $id;    
     }
 
     public function parentId(): ?CategoryId
@@ -45,12 +50,12 @@ final class Category extends Entity
         $this->status = $status;
     }
 
-    public function published(): ?bool
+    public function published(): ?CategoryPublished
     {
         return $this->published;
     }
 
-    public function order(): ?int
+    public function order(): ?CategoryOrder
     {
         return $this->order;
     }
@@ -72,12 +77,17 @@ final class Category extends Entity
 
     public function hasProducts(): bool
     {
-        return !$this->products()?->isEmpty();
+        return !$this->products()->isEmpty();
     }
 
     public function modifyProducts(ProductCollection $products): void
     {
         $this->products = $products;
+    }
+
+    public function isParent(): bool 
+    {
+        return $this->categories()->isNotEmpty();
     }
 
     public function hasParent(): bool
