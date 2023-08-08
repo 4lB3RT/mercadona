@@ -3,15 +3,17 @@
 namespace Tests\Mercadona\Category\Domain;
 
 use Mercadona\Category\Domain\Category;
-use Mercadona\Category\Domain\CategoryId;
-use Mercadona\Category\Domain\CategoryName;
-use Mercadona\Category\Domain\CategoryStatus;
-use Tests\Mercadona\Shared\Domain\BoolExample;
-use Tests\Mercadona\Shared\Domain\IntegerExample;
-use Tests\Mercadona\Category\Domain\CategoryIdExample;
-use Tests\Mercadona\Category\Domain\CategoryNameExample;
-use Tests\Mercadona\Domain\Product\ProductCollectionExample;
+use Mercadona\Category\Domain\ValueObject\CategoryPublished;
+use Mercadona\Category\Domain\ValueObject\CategoryId;
+use Mercadona\Category\Domain\ValueObject\CategoryName;
+use Mercadona\Category\Domain\ValueObject\CategoryOrder;
+use Mercadona\Category\Domain\ValueObject\CategoryStatus;
 use Tests\Mercadona\Category\Domain\CategoryCollectionExample;
+use Tests\Mercadona\Category\Domain\ValueObject\CategoryIdExample;
+use Tests\Mercadona\Category\Domain\ValueObject\CategoryNameExample;
+use Tests\Mercadona\Category\Domain\ValueObject\CategoryOrderExample;
+use Tests\Mercadona\Category\Domain\ValueObject\CategoryPublishedExample;
+use Tests\Mercadona\Product\Domain\ProductCollectionExample;
 
 final class CategoryExample {
 
@@ -33,8 +35,8 @@ final class CategoryExample {
             categories: $categoriesExample ?? CategoryCollectionExample::empty(),
             products: $productsExample ?? ProductCollectionExample::empty(),
             parentId: $parentId ?? CategoryIdExample::random(),
-            published: $published ?? BoolExample::random(),
-            order: $order ?? IntegerExample::random()  
+            published: $published ?? CategoryPublishedExample::random(),
+            order: $order ?? CategoryOrderExample::random()  
         );
     }
 
@@ -47,8 +49,8 @@ final class CategoryExample {
             categories: CategoryCollectionExample::empty(),
             products: ProductCollectionExample::empty(),
             parentId: new CategoryId(1000),
-            published: true,
-            order: 0
+            published: new CategoryPublished(true),
+            order: new CategoryOrder(1)
         );
     }
 
@@ -61,8 +63,8 @@ final class CategoryExample {
             categories: CategoryCollectionExample::empty(),
             products: ProductCollectionExample::empty(),
             parentId: CategoryIdExample::random(),
-            published: BoolExample::random(),
-            order: IntegerExample::random(),
+            published: CategoryPublishedExample::random(),
+            order: CategoryOrderExample::random(),
         );
     }
 }

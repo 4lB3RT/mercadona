@@ -5,12 +5,12 @@ namespace Mercadona\Category\Infrastructure\Repositories\Eloquent;
 use Throwable;
 use Illuminate\Support\Facades\DB;
 use Mercadona\Category\Domain\Category;
-use Mercadona\Category\Domain\CategoryId;
+use Mercadona\Product\Domain\ProductRepository;
 use Mercadona\Category\Domain\CategoryCollection;
 use Mercadona\Category\Domain\CategoryRepository;
+use Mercadona\Category\Domain\ValueObject\CategoryId;
 use Mercadona\Category\Infrastructure\Models\CategoryEloquent;
 use Mercadona\Category\Infrastructure\Transformers\CategoryDataTransformer;
-use Mercadona\Product\Domain\ProductRepository;
 
 final class EloquentCategoryRepository implements CategoryRepository
 {
@@ -20,14 +20,14 @@ final class EloquentCategoryRepository implements CategoryRepository
 
     public function find(CategoryId $categoryId): Category
     {
-        return CategoryDataTransformer::fromModel(CategoryEloquent::with("categories", "products")->findOrFail($categoryId->value()));
+        return CategoryDataTransformer::fromModel(CategoryEloquent::with("allChildrenCategories", "products")->findOrFail($categoryId->value()));
     }
 
     public function findAll(): CategoryCollection
     {
         $categoryEloquent = new CategoryEloquent();
 
-        $categoryCollectionEloquent = $categoryEloquent->with("allChildrenCategories", "products")->get();
+        $categoryCollectionEloquent = $categoryEloquent->with("allChildrenCategories")->get();
         
         return CategoryDataTransformer::fromCollection($categoryCollectionEloquent);
     }
@@ -36,7 +36,7 @@ final class EloquentCategoryRepository implements CategoryRepository
     {
         try{
             DB::beginTransaction();
-            
+
             $categoryArray = CategoryDataTransformer::fromEntity($category);
             $categoryDao = CategoryEloquent::updateOrCreate(
                 ['id' => $category->id()->value()],
@@ -53,6 +53,7 @@ final class EloquentCategoryRepository implements CategoryRepository
 
             DB::commit();
         }catch (Throwable $e) {
+            dd($e->getMessage());
             DB::rollBack();
         }
     }

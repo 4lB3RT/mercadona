@@ -2,22 +2,22 @@
 
 namespace Mercadona\Product\Domain;
 
-use Mercadona\Category\Domain\CategoryId;
 use Mercadona\Shared\Domain\Entity;
 use Mercadona\Photo\Domain\PhotoCollection;
 use Mercadona\Price\Domain\PriceCollection;
-use Mercadona\Product\Domain\ValueObject\ProductBrand;
-use Mercadona\Product\Domain\ValueObject\ProductEan;
 use Mercadona\Product\Domain\ValueObject\ProductId;
-use Mercadona\Product\Domain\ValueObject\ProductLimit;
+use Mercadona\Product\Domain\ValueObject\ProductEan;
+use Mercadona\Category\Domain\ValueObject\CategoryId;
 use Mercadona\Product\Domain\ValueObject\ProductName;
+use Mercadona\Product\Domain\ValueObject\ProductSlug;
+use Mercadona\Product\Domain\ValueObject\ProductBrand;
+use Mercadona\Product\Domain\ValueObject\ProductLimit;
 use Mercadona\Product\Domain\ValueObject\ProductOrigin;
+use Mercadona\Product\Domain\ValueObject\ProductWeight;
+use Mercadona\Product\Domain\ValueObject\ProductShareUrl;
 use Mercadona\Product\Domain\ValueObject\ProductPackaging;
 use Mercadona\Product\Domain\ValueObject\ProductPublished;
-use Mercadona\Product\Domain\ValueObject\ProductShareUrl;
-use Mercadona\Product\Domain\ValueObject\ProductSlug;
 use Mercadona\Product\Domain\ValueObject\ProductThumbnail;
-use Mercadona\Product\Domain\ValueObject\ProductWeight;
 
 final class Product extends Entity
 {

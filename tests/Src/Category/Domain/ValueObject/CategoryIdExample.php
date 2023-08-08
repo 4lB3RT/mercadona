@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Mercadona\Category\Domain;
+namespace Tests\Mercadona\Category\Domain\ValueObject;
 
-use Mercadona\Category\Domain\CategoryId;
 use Tests\Mercadona\Shared\Domain\IntegerExample;
+use Mercadona\Category\Domain\ValueObject\CategoryId;
 
 final class CategoryIdExample {
 

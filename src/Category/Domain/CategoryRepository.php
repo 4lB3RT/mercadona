@@ -2,6 +2,8 @@
 
 namespace Mercadona\Category\Domain;
 
+use Mercadona\Category\Domain\ValueObject\CategoryId;
+
 interface CategoryRepository {
     public function find(CategoryId $categoryId): Category;
 

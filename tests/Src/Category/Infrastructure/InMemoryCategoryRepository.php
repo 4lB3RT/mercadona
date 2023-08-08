@@ -3,10 +3,10 @@
 namespace Tests\Mercadona\Category\Infrastructure;
 
 use Mercadona\Category\Domain\Category;
-use Mercadona\Category\Domain\CategoryId;
 use Mercadona\Category\Domain\CategoryCollection;
-use Mercadona\Category\Domain\CategoryNotFoundException;
 use Mercadona\Category\Domain\CategoryRepository;
+use Mercadona\Category\Domain\ValueObject\CategoryId;
+use Mercadona\Category\Domain\CategoryNotFoundException;
 
 final class InMemoryCategoryRepository implements CategoryRepository
 {

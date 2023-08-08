@@ -4,14 +4,14 @@ namespace Mercadona\Category\Infrastructure\Transformers;
 
 use Illuminate\Database\Eloquent\Model;
 use Mercadona\Category\Domain\Category;
-use Mercadona\Category\Domain\CategoryId;
-use Mercadona\Category\Domain\CategoryName;
 use Illuminate\Database\Eloquent\Collection;
-use Mercadona\Category\Domain\CategoryStatus;
 use Mercadona\Product\Domain\ProductCollection;
 use Mercadona\Category\Domain\CategoryCollection;
-use Mercadona\Category\Domain\CategoryOrder;
-use Mercadona\Category\Domain\CategoryPublished;
+use Mercadona\Category\Domain\ValueObject\CategoryId;
+use Mercadona\Category\Domain\ValueObject\CategoryName;
+use Mercadona\Category\Domain\ValueObject\CategoryOrder;
+use Mercadona\Category\Domain\ValueObject\CategoryStatus;
+use Mercadona\Category\Domain\ValueObject\CategoryPublished;
 use Mercadona\Product\Infrastructure\Transformers\ProductDataTransformer;
 
 final class CategoryDataTransformer
@@ -54,8 +54,8 @@ final class CategoryDataTransformer
             "name" => $category->name()->value(),
             "status" => $category->status()->name,
             "is_parent" => (int) !$category->categories()->isEmpty(),
-            "order" => $category->order(),
-            "published" => $category->published(9),
+            "order" => $category->order()?->value(),
+            "published" => $category->published()?->value(),
         ];
     }
 
@@ -93,6 +93,7 @@ final class CategoryDataTransformer
         if ($model->relationLoaded('products')) {
             $products = ProductDataTransformer::fromCollection($model->products);
         }
+
 
         return new Category(
             new CategoryId($model->id),

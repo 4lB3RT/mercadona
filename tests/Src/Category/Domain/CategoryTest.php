@@ -4,14 +4,16 @@ namespace Tests\Mercadona\Category\Domain;
 
 use PHPUnit\Framework\TestCase;
 use Mercadona\Category\Domain\Category;
-use Mercadona\Category\Domain\CategoryId;
-use Mercadona\Category\Domain\CategoryName;
-use Mercadona\Category\Domain\CategoryStatus;
-use Mercadona\Product\Domain\ProductCollection;
 use Mercadona\Category\Domain\CategoryCollection;
+use Mercadona\Category\Domain\ValueObject\CategoryId;
+use Mercadona\Category\Domain\ValueObject\CategoryName;
+use Mercadona\Category\Domain\ValueObject\CategoryOrder;
+use Mercadona\Category\Domain\ValueObject\CategoryStatus;
+use Mercadona\Category\Domain\ValueObject\CategoryPublished;
+use Mercadona\Product\Domain\ProductCollection;
 use Tests\Mercadona\Category\Domain\CategoryExample;
-use Tests\Mercadona\Domain\Product\ProductCollectionExample;
 use Tests\Mercadona\Category\Domain\CategoryCollectionExample;
+use Tests\Mercadona\Domain\Product\ProductCollectionExample;
 
 final class CategoryTest extends TestCase {
 
@@ -21,8 +23,8 @@ final class CategoryTest extends TestCase {
         $parentId = new CategoryId(2);
         $name = new CategoryName('Test');
         $status = CategoryStatus::READY;
-        $published = true;
-        $order = 1;
+        $published = new CategoryPublished(true);
+        $order = new CategoryOrder(1);
         $categories = CategoryCollection::empty();
         $products = ProductCollection::empty();
 

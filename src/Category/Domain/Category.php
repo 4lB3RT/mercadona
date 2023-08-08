@@ -3,9 +3,13 @@
 namespace Mercadona\Category\Domain;
 
 use Mercadona\Shared\Domain\Entity;
-use Mercadona\Category\Domain\CategoryStatus;
 use Mercadona\Product\Domain\ProductCollection;
 use Mercadona\Category\Domain\CategoryCollection;
+use Mercadona\Category\Domain\ValueObject\CategoryId;
+use Mercadona\Category\Domain\ValueObject\CategoryName;
+use Mercadona\Category\Domain\ValueObject\CategoryOrder;
+use Mercadona\Category\Domain\ValueObject\CategoryPublished;
+use Mercadona\Category\Domain\ValueObject\CategoryStatus;
 
 final class Category extends Entity
 {
