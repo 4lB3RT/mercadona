@@ -23,7 +23,7 @@ final class FindAndSaveCategoryService implements FindAndSaveCategory
                 $this->findAndSave($categoryChildren, $category);
             }
         }
-        
+
         $this->categoryRepository->save($category);
 
         return $category;

@@ -18,7 +18,7 @@ final class GetCategoriesPresenter implements JsonPresenter
         $categoriesArray = [];
 
          /** @var Category $category */
-        foreach ($categories->items () as $category) {            
+        foreach ($categories->items () as $category) {  
             $categoriesArray[] = [
                 "id" => $category->id()->value(),
                 "category_id" => $category->parentId()?->value(),

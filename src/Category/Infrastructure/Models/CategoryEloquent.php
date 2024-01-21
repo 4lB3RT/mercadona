@@ -17,14 +17,13 @@ final class CategoryEloquent extends Model
         return $this->hasMany(CategoryEloquent::class, "category_id", "id");
     }
 
-    public function allChildrenCategories()
+    public function allChildrenCategories(): HasMany
     {
-        return $this->categories()->with('allChildrenCategories');
+        return $this->categories()->with('allChildrenCategories.products');
     }
 
     public function products(): HasMany
     {
         return $this->hasMany(ProductEloquent::class, "category_id", "id");
     }
-
 }

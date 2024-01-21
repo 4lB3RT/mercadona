@@ -3,11 +3,11 @@
 namespace Mercadona\Category\Infrastructure\Presenters;
 
 use Mercadona\Category\Application\GetCategory\GetCategoryResponse;
+use Mercadona\Category\Domain\CategoryCollection;
 use Mercadona\Domain\Category\Category;
 use Mercadona\Shared\Application\Response;
 use Mercadona\Shared\Infrastructure\Presenters\JsonPresenter;
 use Mercadona\Product\Infrastructure\Transformers\ProductDataTransformer;
-use Mercadona\Category\Infrastructure\Transformers\CategoryDataTransformer;
 
 final class GetCategoryPresenter implements JsonPresenter
 { 
@@ -23,13 +23,38 @@ final class GetCategoryPresenter implements JsonPresenter
             "category" => [
                 "id" => $category->id()->value(),
                 "parentId" => $category->parentId()?->value(),
+                "is_parent" => $category->isParent(),
                 "name" => $category->name()->value(),
                 "status" => $category->status(),
                 "published" => $category->published(),
                 "order" => $category->order(),
-                "categories" => CategoryDataTransformer::fromEntities($category->categories()),
+                "categories" => $this->childrenCategories($category->categories()),
                 "products" => $products
             ]
         ]);
+    }
+
+    public function childrenCategories(CategoryCollection $categories): array 
+    {
+        $categoriesArray = [];
+
+        /** @var Category $category */
+        foreach ($categories as $category) {  
+            $products = ProductDataTransformer::fromEntities($category->products());
+          
+            $categoriesArray[] =  [
+                "id" => $category->id()->value(),
+                "category_id" => $category->parentId()?->value(),
+                "name" => $category->name()->value(),
+                "categories" => $this->childrenCategories($category->categories()),
+                "status" => $category->status()->name,
+                "is_parent" => $category->isParent(),
+                "order" => $category->order(),
+                "published" => $category->published(),
+                "products" => $products
+            ];
+        }
+
+        return $categoriesArray;
     }
 }

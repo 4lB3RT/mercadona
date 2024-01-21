@@ -5,12 +5,12 @@ namespace Mercadona\Category\Infrastructure\Repositories\Api;
 use GuzzleHttp\Client;
 use Mercadona\Category\Domain\Category;
 use GuzzleHttp\Exception\GuzzleException;
+use Symfony\Component\HttpFoundation\Response;
+use Mercadona\Product\Domain\ProductRepository;
 use Mercadona\Category\Domain\CategoryCollection;
 use Mercadona\Category\Domain\CategoryReadRepository;
-use Mercadona\Category\Domain\CategoryStatus;
-use Symfony\Component\HttpFoundation\Response;
+use Mercadona\Category\Domain\ValueObject\CategoryStatus;
 use Mercadona\Category\Infrastructure\Transformers\CategoryDataTransformer;
-use Mercadona\Product\Domain\ProductRepository;
 
 final class ApiCategoryRepository implements CategoryReadRepository
 {

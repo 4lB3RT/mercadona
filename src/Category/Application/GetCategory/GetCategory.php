@@ -2,12 +2,12 @@
 
 namespace Mercadona\Category\Application\GetCategory;
 
-use Mercadona\Category\Domain\CategoryId;
 use Mercadona\Shared\Application\Request;
 use Mercadona\Category\Application\GetCategory\GetCategoryResponse;
 use Mercadona\Category\Domain\CategoryRepository;
 use Mercadona\Category\Domain\Service\FindAndSaveCategory;
 use Mercadona\Product\Domain\ProductRepository;
+use Mercadona\Category\Domain\ValueObject\CategoryId;
 
 final class GetCategory
 {
@@ -21,15 +21,8 @@ final class GetCategory
     public function execute(Request $request): GetCategoryResponse
     {
         $categoryId = new CategoryId($request->categoryId());
-        $categoryWithOutProcess = $this->categoryRepository->find($categoryId);
+        $category = $this->categoryRepository->find($categoryId);
         
-        $parent = null;
-        if ($categoryWithOutProcess->hasParent()) {
-            $parent = $this->categoryRepository->find($categoryWithOutProcess->parentId());
-        }
-        
-        $categoryProcessed = $this->findAndSaveCategory->findAndSave($categoryWithOutProcess, $parent);
-
-        return new GetCategoryResponse($categoryProcessed);
+        return new GetCategoryResponse($category);
     }
 }
