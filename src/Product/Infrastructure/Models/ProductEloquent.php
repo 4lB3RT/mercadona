@@ -4,11 +4,14 @@ namespace Mercadona\Product\Infrastructure\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Mercadona\Category\Infrastructure\Models\CategoryEloquent;
 use Mercadona\Photo\Infrastructure\Models\PhotoEloquent;
 use Mercadona\Price\Infrastructure\Models\PriceEloquent;
 
 final class ProductEloquent extends Model
 {
+    public $incrementing = false;
     protected $table = "products";
     protected $primaryKey = "id";
     protected $fillable = ["id", "category_id", "product_detail_id", "name", "ean", "slug", "brand", "limit", "origin", "packaging", "published", "share_url", "thumbnail", "is_variable_weight"];
@@ -23,4 +26,8 @@ final class ProductEloquent extends Model
         return $this->belongsToMany(PhotoEloquent::class, "products_photos", "product_id", "photo_id")->withTimestamps();
     }
 
+    public function categories(): HasOne
+    {
+        return $this->hasOne(CategoryEloquent::class, "category_id");
+    }
 }

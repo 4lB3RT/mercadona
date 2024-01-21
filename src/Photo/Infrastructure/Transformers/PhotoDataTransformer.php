@@ -2,8 +2,8 @@
 
 namespace Mercadona\Photo\Infrastructure\Transformers;
 
+use Illuminate\Database\Eloquent\Collection;
 use Mercadona\Photo\Domain\Photo;
-use Mercadona\Shared\Domain\Collection;
 use Mercadona\Photo\Domain\PhotoCollection;
 use Mercadona\Photo\Domain\PhotoId;
 

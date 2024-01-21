@@ -23,6 +23,7 @@ final class GetCategoryPresenter implements JsonPresenter
             "category" => [
                 "id" => $category->id()->value(),
                 "parentId" => $category->parentId()?->value(),
+                "is_parent" => $category->isParent(),
                 "name" => $category->name()->value(),
                 "status" => $category->status(),
                 "published" => $category->published(),
@@ -38,7 +39,9 @@ final class GetCategoryPresenter implements JsonPresenter
         $categoriesArray = [];
 
         /** @var Category $category */
-        foreach ($categories as $category) {            
+        foreach ($categories as $category) {  
+            $products = ProductDataTransformer::fromEntities($category->products());
+          
             $categoriesArray[] =  [
                 "id" => $category->id()->value(),
                 "category_id" => $category->parentId()?->value(),
@@ -48,6 +51,7 @@ final class GetCategoryPresenter implements JsonPresenter
                 "is_parent" => $category->isParent(),
                 "order" => $category->order(),
                 "published" => $category->published(),
+                "products" => $products
             ];
         }
 

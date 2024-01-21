@@ -26,11 +26,6 @@ php artisan migrate
 
 ### Download Categories and products
 
-- Download main categories from mercadona API
-```
-php artisan save-categories
-```
-
 - Download and process products from mercadona API
 ```
 php artisan save-categories

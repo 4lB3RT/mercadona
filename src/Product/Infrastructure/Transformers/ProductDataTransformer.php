@@ -9,7 +9,6 @@ use Mercadona\Photo\Domain\PhotoCollection;
 use Mercadona\Price\Domain\PriceCollection;
 use Illuminate\Database\Eloquent\Collection;
 use Mercadona\Product\Domain\ProductCollection;
-use Mercadona\Category\Domain\CategoryIdCollection;
 use Mercadona\Product\Domain\ValueObject\ProductId;
 use Mercadona\Product\Domain\ValueObject\ProductEan;
 use Mercadona\Category\Domain\ValueObject\CategoryId;

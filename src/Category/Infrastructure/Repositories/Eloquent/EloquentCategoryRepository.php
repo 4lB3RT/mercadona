@@ -20,7 +20,13 @@ final class EloquentCategoryRepository implements CategoryRepository
 
     public function find(CategoryId $categoryId): Category
     {
-        return CategoryDataTransformer::fromModel(CategoryEloquent::with("allChildrenCategories", "products")->findOrFail($categoryId->value()));
+        try {
+            $categoryDao = CategoryEloquent::with(["allChildrenCategories"])->findOrFail($categoryId->value());
+
+            return CategoryDataTransformer::fromModel($categoryDao);
+        }catch (Throwable $e) {
+            throw $e;
+        }
     }
 
     public function findAll(): CategoryCollection
