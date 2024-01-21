@@ -1,54 +1,78 @@
-# 🍀 Mercadona API 🍀 #
+
+# 🍀 Mercadona API 🍀
 
 ## Description ##
- - **API Rest make with PHP, DDD and unit test, thats API works with [Mercadona](https://tienda.mercadona.es/api/).**
+The Mercadona API is a RESTful API developed using PHP, employing Domain-Driven Design (DDD) and unit testing. This API interfaces with [Mercadona](https://tienda.mercadona.es/api/), offering an efficient way to access and manipulate product and category data.
 
+## Setup ##
 
-## SET UP ##
+### Starting Docker Containers
+Navigate to the `docker` directory:
 
-### Go to docker folder and up the docker containers
 ```
 cd docker
 ```
-- Build php imange  
- ```
-     docker compose build --no-cache
- ```
 
-- Up and download images: mysql nginx 
- ```
-     docker compose up -d
- ```
-### Execute Migrations
+- Create a `.env` file in the docker directory as follows:
+```
+PROJECT_NAME="mercadona"
+NGINX_PORT="8090"
+PHP_PORT="80"
+MYSQL_PORT="3306"
+MYSQL_DATABASE="mercadona_local"
+MYSQL_USER="root"
+MYSQL_PASSWORD="root"
+```
+
+- Build the PHP image:
+```
+docker compose build --no-cache
+```
+
+- Launch and download images for MySQL and NGINX:
+```
+docker compose up -d
+```
+
+### Laravel Configuration
+Run the following to install dependencies:
+```
+composer install
+```
+- Duplicate and rename `.env.example`.
+- Update MySQL configuration to match Docker connection settings.
+
+### Executing Migrations
+Run migrations with the following command:
 ```
 php artisan migrate
 ```
 
-### Download Categories and products
+### Downloading Categories and Products
 
-- Download and process products from mercadona API
+- Fetch and process products from the Mercadona API:
 ```
 php artisan save-categories
 ```
 
-# EndPoints
+## Endpoints
 
-- Get categories
+- Retrieve categories:
 ``` 
-http://{hos†}:8090/api/categories
-``` 
-
-- Get category
-``` 
-http://{hos†}:8090/api/categories/{categoryId}
+http://{host}:8090/api/categories
 ``` 
 
-- Get products
+- Retrieve a specific category:
 ``` 
-http://{hos†}:8090/api/products
+http://{host}:8090/api/categories/{categoryId}
 ``` 
 
-- Get product
+- Retrieve products:
 ``` 
-http://{hos†}:8090/api/products/{productId}
+http://{host}:8090/api/products
 ``` 
+
+- Retrieve a specific product:
+``` 
+http://{host}:8090/api/products/{productId}
+```
