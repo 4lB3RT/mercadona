@@ -55,7 +55,7 @@ final class ApiCategoryRepository implements CategoryReadRepository
           $response["categories"],
           $categoryArray
         );
-            
+          
         $category->modifyCategories($categories);    
         $category->modifyStatus(CategoryStatus::PROCESSED);
       } catch(GuzzleException $exception) {

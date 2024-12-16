@@ -2,7 +2,6 @@
 
 namespace Mercadona\Category\Application\SaveCategoriesFromApi;
 
-use Mercadona\Category\Domain\Category;
 use Mercadona\Category\Domain\CategoryReadRepository;
 use Mercadona\Category\Domain\CategoryRepository;
 use Mercadona\Category\Domain\Service\FindAndSaveCategory;
