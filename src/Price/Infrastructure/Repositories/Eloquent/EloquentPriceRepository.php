@@ -22,17 +22,19 @@ final class EloquentPriceRepository implements PriceRepository
     {
         try{
             DB::beginTransaction();
-            
+
             $priceDao = PriceEloquent::updateOrCreate(
-                ['id' => $price->id()?->value()],
+                [
+                    "product_id" => $price->productId()->value(),
+                    "unit_price" => $price->unitPrice(),
+                ],
                 PriceDataTransformer::fromEntity($price)
             );
-    
+
             $price->modifyId(new PriceId($priceDao->id));
-    
+
             DB::commit();
         }catch (Throwable $e) {
-            dd($e->getMessage());
             DB::rollBack();
         }
     }

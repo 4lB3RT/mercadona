@@ -3,6 +3,7 @@
 namespace Mercadona\Product\Infrastructure\Repositories\Eloquent;
 
 use Illuminate\Support\Facades\DB;
+use Mercadona\Category\Domain\ValueObject\CategoryId;
 use Mercadona\Photo\Domain\PhotoRepository;
 use Mercadona\Price\Domain\Price;
 use Mercadona\Price\Domain\PriceRepository;
@@ -39,7 +40,7 @@ final class EloquentProductRepository implements ProductRepository
     {
         try{
             DB::beginTransaction();
-            
+
             $productArray = ProductDataTransformer::fromEntity($product);
             $productDao = ProductEloquent::updateOrCreate(
                 ['id' => $product->id()?->value()],
@@ -47,25 +48,28 @@ final class EloquentProductRepository implements ProductRepository
             );
 
             $product->modifyId(new ProductId($productDao->id));
-            
+
             if ($product->prices()->isNotEmpty()) {
                 $prices = $product->prices();
                 $this->priceRepository->saveAll($prices);
-
-                $productDao->prices()->attach($prices->ids());
             }
-            
+
             if ($product->photos()->isNotEmpty()) {
                 $photos = $product->photos();
                 $this->photoRepository->saveAll($photos);
                 $productDao->photos()->sync($photos->ids());
             }
-            
+
             DB::commit();
         }catch (Throwable $e) {
             DB::rollBack();
 
             throw $e;
         }
+    }
+
+    public function findByCategory(CategoryId $categoryId): ProductCollection
+    {
+        return ProductDataTransformer::fromCollection(ProductEloquent::where("category_id", $categoryId->value())->get());
     }
 }

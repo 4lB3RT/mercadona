@@ -73,4 +73,9 @@ abstract class Collection implements Countable, IteratorAggregate
 
         return null;
     }
+
+    public function first(): ?Entity
+    {
+        return $this->items()[0];
+    }
 }

@@ -2,6 +2,9 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
+use Mercadona\Category\Infrastructure\Commands\SaveCategoriesFromApiArtisanCommand;
+use Mercadona\Product\Infrastructure\Commands\UpdateProductsFromApiArtisanCommand;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +20,5 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Schedule::command("save-categories")->daily();

@@ -8,14 +8,17 @@ use Mercadona\Price\Domain\PriceId;
 use Illuminate\Database\Eloquent\Model;
 use Mercadona\Price\Domain\PriceCollection;
 use Illuminate\Database\Eloquent\Collection;
+use Mercadona\Product\Domain\ValueObject\ProductId;
 
 final class PriceDataTransformer
 {
-    public static function fromArray(array $result): Price
+    public static function fromArray(array $result, int $productId): Price
     {
         $price = new Price(
             isset($result["id"]) ? new PriceId((int) $result["id"]) : null,
-            Iva::tryFrom($result["iva"]),
+            new ProductId($productId),
+            now(),
+            !is_null($result["iva"]) ? Iva::tryFrom($result["iva"]) : Iva::NONE,
             $result["is_new"],
             $result["is_pack"],
             $result["pack_size"],
@@ -40,10 +43,10 @@ final class PriceDataTransformer
         return $price;
     }
 
-    public static function fromArrays(array $priceArray): PriceCollection
+    public static function fromArrays(array $priceArray, int $productId): PriceCollection
     {
         $prices = [];
-        $prices[] = self::fromArray($priceArray);
+        $prices[] = self::fromArray($priceArray, $productId);
 
         return new PriceCollection($prices);
     }
@@ -52,6 +55,8 @@ final class PriceDataTransformer
     {
        return [
             "id" => $price->id()?->value(),
+            "product_id" => $price->productId()->value(),
+            "date" => $price->date(),
             "iva" => $price->iva()->value,
             "is_new" => $price->isNew(),
             "is_pack" => $price->isPack(),
@@ -91,6 +96,8 @@ final class PriceDataTransformer
     {
         return new Price(
             new PriceId($model->id),
+            new ProductId($model->product_id),
+            $model->date,
             Iva::tryFrom($model->iva),
             (bool) $model->is_new,
             (bool) $model->is_pack,

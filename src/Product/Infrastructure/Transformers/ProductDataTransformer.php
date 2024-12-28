@@ -33,8 +33,8 @@ final class ProductDataTransformer
             new ProductId((int) $result["id"]),
             new ProductName($result["display_name"]),
             $category->id(),
-            isset($result["photos"]) 
-            ? PhotoDataTransformer::fromArrays($result["photos"]) 
+            isset($result["photos"])
+            ? PhotoDataTransformer::fromArrays($result["photos"])
             : PhotoCollection::empty(),
             isset($result["ean"]) ? new ProductEan((int) $result["ean"]) : new ProductEan(0),
             isset($result["slug"]) ? new ProductSlug($result["slug"]) : new ProductSlug(""),
@@ -45,11 +45,11 @@ final class ProductDataTransformer
             isset($result["published"]) ? new ProductPublished((bool) $result["published"]) : new ProductPublished(false),
             isset($result["share_url"]) ? new ProductShareUrl($result["share_url"]) : new ProductShareUrl(""),
             new ProductThumbnail($result["thumbnail"]),
-            isset($result["isVariableWeight"]) 
-                ? new ProductWeight($result["isVariableWeight"]) 
+            isset($result["isVariableWeight"])
+                ? new ProductWeight($result["isVariableWeight"])
                 : new ProductWeight(0),
-            isset($result["price_instructions"]) 
-                ? PriceDataTransformer::fromArrays($result["price_instructions"]) 
+            isset($result["price_instructions"])
+                ? PriceDataTransformer::fromArrays($result["price_instructions"], (int) $result["id"])
                 : PriceCollection::empty()
         );
     }
@@ -111,7 +111,7 @@ final class ProductDataTransformer
         $photos = PhotoCollection::empty();
         if ($model->relationLoaded('photos')) {
             $photos = PhotoDataTransformer::fromCollection($model->photos);
-            
+
         }
         return new Product(
             new ProductId($model->id),

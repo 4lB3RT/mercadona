@@ -14,9 +14,9 @@ final class FindAndSaveCategoryService implements FindAndSaveCategory
     ) {}
 
     public function findAndSave(Category $category, ?Category $parent = null): Category
-    {        
+    {   
         $category = $this->categoryReadRepository->findDetailCategory($category, $parent);
-        
+                
         if (!$category->categories()->isEmpty()) {
             /** @var Category $categoryChildren */
             foreach ($category->categories()->items() as $categoryChildren) {

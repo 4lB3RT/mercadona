@@ -32,7 +32,6 @@ final class ApiCategoryRepository implements CategoryReadRepository
           ));
 
         $response = curl_exec($curl);
-        $err = curl_error($curl);
 
         curl_close($curl);
 
@@ -61,7 +60,7 @@ final class ApiCategoryRepository implements CategoryReadRepository
       } catch(GuzzleException $exception) {
         $code = $exception->getCode();
         
-        if ($code === Response::HTTP_GONE) {
+        if ($code === Response::HTTP_GONE ) {
           $categories = array_filter(
             $parent->categories()->items(),
             fn(Category $categoryChildren) => $categoryChildren->id()->value() === $category->id()->value()

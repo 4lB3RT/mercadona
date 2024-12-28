@@ -5,10 +5,9 @@ namespace Tests\Mercadona\Price\Domain;
 use Mercadona\Price\Domain\Iva;
 use Mercadona\Price\Domain\Price;
 use Mercadona\Price\Domain\PriceId;
-use Tests\Mercadona\Price\Domain\IvaExample;
+use Tests\Mercadona\Product\Domain\ProductIdExample;
 use Tests\Mercadona\Shared\Domain\BoolExample;
 use Tests\Mercadona\Shared\Domain\FloatExample;
-use Tests\Mercadona\Price\Domain\PriceIdExample;
 use Tests\Mercadona\Shared\Domain\StringExample;
 use Tests\Mercadona\Shared\Domain\IntegerExample;
 
@@ -18,7 +17,9 @@ final class PriceExample {
     {
         return new Price(
             id: new PriceId(1),
-            iva: Iva::SUPERREDUCIDO,
+            productId: ProductIdExample::random(),
+            date: now(),
+            iva: Iva::SUPERREDUCIDO_2,
             isNew: true,
             isPack: false,
             packSize: 1.2,
@@ -45,6 +46,8 @@ final class PriceExample {
     {
         return new Price(
             id: PriceIdExample::random(),
+            productId: ProductIdExample::random(),
+            date: now(),
             iva: IvaExample::random(),
             isNew: BoolExample::random(),
             isPack: BoolExample::random(),

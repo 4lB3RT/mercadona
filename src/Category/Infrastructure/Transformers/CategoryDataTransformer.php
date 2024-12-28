@@ -17,7 +17,7 @@ use Mercadona\Product\Infrastructure\Transformers\ProductDataTransformer;
 final class CategoryDataTransformer
 {
     public static function fromArray(array $result, ?array $parent = null): Category
-    {        
+    {       
         $category = new Category(
             new CategoryId($result["id"]),
             new CategoryName($result["name"]),

@@ -19,13 +19,13 @@ class SaveCategoriesFromApiArtisanCommand extends Command
     {
         parent::__construct();
     }
- 
+
     public function handle(): void
     {
         try {
             $this->getCategoriesFromApi->execute();
         }catch(Throwable $e) {
-            dd($e->getMessage());
+            dd($e);
             Log::info($e->getMessage());
         }
     }
